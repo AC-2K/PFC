@@ -9,7 +9,7 @@
 
     $_SESSION["usuario"] = $user;
       
-    $query = " SELECT * from tecnico where `t.nome` ='". $user ."' and pass='".$pass."'";
+    $query = " SELECT * from tecnico where `tec_nome` ='". $user ."' and tec_pass='".$pass."'";
     $result = $link->query($query);
           
         if (mysqli_num_rows($result) == 1) 
@@ -19,7 +19,7 @@
         } 
         else 
         {
-            $query = "SELECT * FROM gestor WHERE nome = '". $user ."' AND password = '".$pass."' ";
+            $query = "SELECT * FROM gestor WHERE ges_nome = '". $user ."' AND ges_pass = '".$pass."' ";
             $result = mysqli_query($link,$query);
             if (mysqli_num_rows($result) == 1) 
             {

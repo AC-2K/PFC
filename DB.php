@@ -5,7 +5,6 @@
    $password = "";
    $dbname = "pfc";
 
-   $user = $_SESSION["usuario"];
      
    // connect the database with the server
    $conn = new mysqli($servername,$username,$password,$dbname);

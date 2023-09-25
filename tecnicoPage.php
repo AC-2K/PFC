@@ -66,34 +66,29 @@
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Serviços técnicos</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="criarServico.php" class="">Criar</a></li>
-                            <li class=""><a href="readServico.php" class="">Visualizar</a></li>
-                            <li class=""><a href="updateServico.php" class="">Update</a></li>
-                            <li class=""><a href="deleteServico.php" class="">Apagar</a></li>
+                            <li class=""><a href="paginaServico.php" class="">Operações</a></li>
+                            <li class=""><a href="listaServico.php" class="">Lista</a></li>
                         </ul>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Relatórios técnicos</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="criarRelatorio.php" class="">Criar</a></li>
-                            <li class=""><a href="readRelatorio.php" class="">Visualizar</a></li>
-                            <li class=""><a href="updateRelatorio.php" class="">Update</a></li>
-                            <li class=""><a href="deleteRelatorio.php" class="">Apagar</a></li>
+                            <li class=""><a href="paginaRelatorio.php" class="">Operações</a></li>
+                            <li class=""><a href="listaRelatorio.php" class="">Lista</a></li>
                         </ul>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Clientes</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="readCliente.php" class="">Visualizar</a></li>
+                            <li class=""><a href="paginaCliente.php" class="">Operações</a></li>
+                            <li class=""><a href="listaCliente.php" class="">Lista</a></li>
                         </ul>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Levantamentos</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="criarLevantamento.php" class="">Emissao</a></li>
-                            <li class=""><a href="readLevantamento.php" class="">Visualizar</a></li>
-                            <li class=""><a href="updateLevantamento.php" class="">Update</a></li>
-                            <li class=""><a href="deleteLevantamento.php" class="">Apagar</a></li>
+                            <li class=""><a href="paginaLevantamento.php" class="">Operações</a></li>
+                            <li class=""><a href="listaLevantamento.php" class="">Lista</a></li>
                         </ul>
                     </li>
                     
@@ -149,7 +144,7 @@
                                 <div class="col-md-6 col-xl-4">
                                     <div class="card daily-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Pagamentos feito</h6>
+                                            <h6 class="mb-4"> feito</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
                                                     <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 249.95</h3>
@@ -170,7 +165,7 @@
                                 <div class="col-md-6 col-xl-4">
                                     <div class="card Monthly-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Pagamentos em  pendentes</h6>
+                                            <h6 class="mb-4"> em  pendentes</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
                                                     <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>$ 2.942.32</h3>

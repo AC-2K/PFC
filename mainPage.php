@@ -1,5 +1,73 @@
 <?php
     include 'DB.php';
+
+    $sql = "SELECT COUNT(*) FROM servicotecnico WHERE servico_estado LIKE 'andamento'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+
+    $sql2 = "SELECT COUNT(*) FROM servicotecnico WHERE servico_estado LIKE 'terminado'";
+    $result2 = mysqli_query($conn, $sql2);
+    $row2 = mysqli_fetch_array($result2);
+
+    $sql3 = "SELECT COUNT(*) FROM levantamento ";
+    $result3 = mysqli_query($conn, $sql3);
+    $row3 = mysqli_fetch_array($result3);
+
+    $sql4 = "select * from servicotecnico
+    inner join tecnico On tec_id = id_tec
+    inner join cliente On cliente_id = id_cliente ORDER by cliente_nome";
+    $result4 = ($conn->query($sql4));
+    //declare array to store the data of database
+    $row4 = []; 
+    
+    if ($result4->num_rows > 0) 
+    {
+        // fetch all data from db into array 
+        $row4 = $result4->fetch_all(MYSQLI_ASSOC);  
+    }
+
+    $sql5 = "SELECT COUNT(*) FROM localexecucao";
+    $result5 = mysqli_query($conn, $sql5);
+    $row5 = mysqli_fetch_array($result5);
+
+    $sql6 = "SELECT COUNT(*) FROM relatorio";
+    $result6 = mysqli_query($conn, $sql6);
+    $row6 = mysqli_fetch_array($result6);
+
+    $sql7 = "select * from sistemaseguranca";
+    $result7 = ($conn->query($sql7));
+    //declare array to store the data of database
+    $row7 = []; 
+    
+    if ($result7->num_rows > 0) 
+    {
+        // fetch all data from db into array 
+        $row7 = $result7->fetch_all(MYSQLI_ASSOC);  
+    }
+
+    $sql8 = "select * from cliente";
+    $result8 = ($conn->query($sql8));
+    //declare array to store the data of database
+    $row8 = []; 
+    
+    if ($result8->num_rows > 0) 
+    {
+        // fetch all data from db into array 
+        $row8 = $result8->fetch_all(MYSQLI_ASSOC);  
+    }
+
+    $sql9 = "select * from tecnico";
+    $result9 = ($conn->query($sql9));
+    //declare array to store the data of database
+    $row9 = []; 
+    
+    if ($result9->num_rows > 0) 
+    {
+        // fetch all data from db into array 
+        $row9 = $result9->fetch_all(MYSQLI_ASSOC);  
+    }
+
+    $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +125,7 @@
                         <label>Geral</label>
                     </li>
                     <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
-                        <a href="mainPage.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Inicio</span></a>
+                        <a href="tecnicoPage.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Inicio</span></a>
                     </li>
                     <li class="nav-item pcoded-menu-caption">
                         <label>Entidades</label>
@@ -65,39 +133,32 @@
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Serviços técnicos</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="criarServico.php" class="">Criar</a></li>
-                            <li class=""><a href="readServico.php" class="">Visualizar</a></li>
-                            <li class=""><a href="updateServico.php" class="">Update</a></li>
-                            <li class=""><a href="deleteServico.php" class="">Apagar</a></li>
+                            <li class=""><a href="paginaServico.php" class="">Operações</a></li>
+                            <li class=""><a href="listaServico.php" class="">Lista</a></li>
+                            <li class=""><a href="material.php" class="">Material</a></li>
+                            <li class=""><a href="historico.php" class="">Historico</a></li>
                         </ul>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Relatórios técnicos</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="criarRelatorio.php" class="">Criar</a></li>
-                            <li class=""><a href="readRelatorio.php" class="">Visualizar</a></li>
-                            <li class=""><a href="updateRelatorio.php" class="">Update</a></li>
-                            <li class=""><a href="deleteRelatorio.php" class="">Apagar</a></li>
+                            <li class=""><a href="paginaRelatorio.php" class="">Operações</a></li>
+                            <li class=""><a href="listaRelatorio.php" class="">Lista</a></li>
                         </ul>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Clientes</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="criarCliente.php" class="">Criar</a></li>
-                            <li class=""><a href="readCliente.php" class="">Visualizar</a></li>
-                            <li class=""><a href="updateCliente.php" class="">Update</a></li>
-                            <li class=""><a href="deleteCliente.php" class="">Apagar</a></li>
-                            <li class=""><a href="bc_collapse.html" class="">Estatisticas</a></li>
+                            <li class=""><a href="paginaCliente.php" class="">Operações</a></li>
+                            <li class=""><a href="listaCliente.php" class="">Lista</a></li>
+                            <li class=""><a href="estatistica.php" class="">Estatisticas</a></li>
                         </ul>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Levantamentos</span></a>
                         <ul class="pcoded-submenu">
-                            <li class=""><a href="criarLevantamento.php" class="">Emissao</a></li>
-                            <li class=""><a href="readLevantamento.php" class="">Visualizar</a></li>
-                            <li class=""><a href="updateLevantamento.php" class="">Update</a></li>
-                            <li class=""><a href="deleteLevantamento.php" class="">Apagar</a></li>
-                            
+                            <li class=""><a href="paginaLevantamento.php" class="">Operações</a></li>
+                            <li class=""><a href="listaLevantamento.php" class="">Lista</a></li>
                         </ul>
                     </li>
                     
@@ -154,18 +215,11 @@
                                 <div class="col-md-6 col-xl-4">
                                     <div class="card daily-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Pagamentos feito</h6>
+                                            <h6 class="mb-4">Serviços feito</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 249.95</h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> <?php echo $row2[0]; ?></h3> 
                                                 </div>
-
-                                                <div class="col-3 text-right">
-                                                    <p class="m-b-0">Valor de teste</p>
-                                                </div>
-                                            </div>
-                                            <div class="progress m-t-30" style="height: 7px;">
-                                                <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -175,17 +229,11 @@
                                 <div class="col-md-6 col-xl-4">
                                     <div class="card Monthly-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Pagamentos em  pendentes</h6>
+                                            <h6 class="mb-4">Serviços em execução</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>$ 2.942.32</h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i><?php echo $row[0]; ?></h3>
                                                 </div>
-                                                <div class="col-3 text-right">
-                                                    <p class="m-b-0">Valor de teste</p>
-                                                </div>
-                                            </div>
-                                            <div class="progress m-t-30" style="height: 7px;">
-                                                <div class="progress-bar progress-c-theme2" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -198,14 +246,8 @@
                                             <h6 class="mb-4">Levantamentos Feitos</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 8.638.32</h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> <?php echo $row3[0]; ?></h3>
                                                 </div>
-                                                <div class="col-3 text-right">
-                                                    <p class="m-b-0">80%</p>
-                                                </div>
-                                            </div>
-                                            <div class="progress m-t-30" style="height: 7px;">
-                                                <div class="progress-bar progress-c-theme" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -220,63 +262,24 @@
                                         <div class="card-block px-0 py-3">
                                             <div class="table-responsive">
                                                 <table class="table table-hover">
+                                                    <?php
+                                                        if(!empty($row4))
+                                                            foreach($row4 as $rows){ 
+                                                    ?>                                                                   
                                                     <tbody>
                                                         <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Isabella Christensen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr class="unread">
                                                             <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user"></td>
                                                             <td>
-                                                                <h6 class="mb-1">Mathilde Andersen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply text of…</p>
+                                                                <h6 class="mb-1"><?php echo $rows['cliente_nome']; ?></h6>
+                                                                <p class="m-0"><?php echo $rows['servico_descricaoGeral']; ?></p>
+                                                                <p class="m-0">Tecnico responsavel: <?php echo $rows['tec_nome']; ?></p>
                                                             </td>
                                                             <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
+                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i><?php echo $rows['servico_estado']; ?></h6>
                                                             </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
                                                         </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-3.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Karla Sorensen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>9 MAY 17:38</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Ida Jorgensen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply text of…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted f-w-300"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>19 MAY 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">Albert Andersen</h6>
-                                                                <p class="m-0">Lorem Ipsum is simply dummy…</p>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>21 July 12:56</h6>
-                                                            </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
-                                                        </tr>
-                                                    </tbody>
+                                                    </tbody>                            
+                                                    <?php } ?>
                                                 </table>
                                             </div>
                                         </div>
@@ -286,17 +289,6 @@
 
                                 <!-- [ statistics year chart ] start -->
                                 <div class="col-xl-4 col-md-6">
-                                    <div class="card card-event">
-                                        <div class="card-block">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col">
-                                                    <h5 class="m-0">Trabalhos em percurso</h5>
-                                                </div>
-                                            </div>
-                                            <h2 class="mt-3 f-w-300">45</h2>
-                                            <i class="fab fa-angellist text-c-purple f-50"></i>
-                                        </div>
-                                    </div>
                                     <div class="card">
                                         <div class="card-block border-bottom">
                                             <div class="row d-flex align-items-center">
@@ -304,8 +296,8 @@
                                                     <i class="feather icon-zap f-30 text-c-green"></i>
                                                 </div>
                                                 <div class="col">
-                                                    <h3 class="f-w-300">235</h3>
-                                                    <span class="d-block text-uppercase">Total de servicos completados</span>
+                                                    <h3 class="f-w-300"></i> <?php echo $row6[0]; ?></h3>
+                                                    <span class="d-block text-uppercase">Relatorios técnicos </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -315,7 +307,7 @@
                                                     <i class="feather icon-map-pin f-30 text-c-blue"></i>
                                                 </div>
                                                 <div class="col">
-                                                    <h3 class="f-w-300">26</h3>
+                                                    <h3 class="f-w-300"><?php echo $row5[0]; ?></h3>
                                                     <span class="d-block text-uppercase">Cidades abrangidas</span>
                                                 </div>
                                             </div>
@@ -323,185 +315,89 @@
                                     </div>
                                 </div>
                                 <!-- [ statistics year chart ] end -->
-                                <div class="tab-content" style="justify-content: center;">
-                                    <h1> Clientes com mais serviços feito</h1>
-                                </div>
                                 <hr>
                                 <!--[social-media section] start-->
                                 <div class="col-md-12 col-xl-4">
                                     <div class="card card-social">
                                         <div class="card-block border-bottom">
                                             <div class="row align-items-center justify-content-center">
-                                                <div class="col-auto">
-                                                    <i class="fab fa-facebook-f text-primary f-36"></i>
-                                                </div>
                                                 <div class="col text-right">
-                                                    <h3>12,281</h3>
-                                                    <h5 class="text-c-green mb-0">+7.2% <span class="text-muted">Total Likes</span></h5>
+                                                    <h3>Sistema de segurança</h3>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-block">
                                             <div class="row align-items-center justify-content-center card-active">
                                                 <div class="col-6">
-                                                    <h6 class="text-center m-b-10"><span class="text-muted m-r-5">Target:</span>35,098</h6>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-c-theme" role="progressbar" style="width:60%;height:6px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <h6 class="text-center  m-b-10"><span class="text-muted m-r-5">Duration:</span>3,539</h6>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-c-theme2" role="progressbar" style="width:45%;height:6px;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="text-center m-b-10">
+                                                        <?php
+                                                            if(!empty($row7))
+                                                                foreach($row7 as $rows)
+                                                                { 
+                                                            ?>                                                                   
+                                                            <?php echo $rows['sis_designacao']; ?>
+                                                            <?php echo "<hr>" ?>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-xl-4">
+                                <div class="col-md-12 col-xl-4">
                                     <div class="card card-social">
                                         <div class="card-block border-bottom">
                                             <div class="row align-items-center justify-content-center">
-                                                <div class="col-auto">
-                                                    <i class="fab fa-twitter text-c-blue f-36"></i>
-                                                </div>
                                                 <div class="col text-right">
-                                                    <h3>11,200</h3>
-                                                    <h5 class="text-c-purple mb-0">+6.2% <span class="text-muted">Total Likes</span></h5>
+                                                    <h3>Clientes registrados</h3>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-block">
                                             <div class="row align-items-center justify-content-center card-active">
                                                 <div class="col-6">
-                                                    <h6 class="text-center m-b-10"><span class="text-muted m-r-5">Target:</span>34,185</h6>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-c-green" role="progressbar" style="width:40%;height:6px;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <h6 class="text-center  m-b-10"><span class="text-muted m-r-5">Duration:</span>4,567</h6>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-c-blue" role="progressbar" style="width:70%;height:6px;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="text-center m-b-10">
+                                                        <?php
+                                                            if(!empty($row8))
+                                                                foreach($row8 as $rows)
+                                                                { 
+                                                            ?>                                                                   
+                                                            <?php echo $rows['cliente_nome']; ?>
+                                                            <?php echo "<hr>" ?>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-xl-4">
+                                <div class="col-md-12 col-xl-4">
                                     <div class="card card-social">
                                         <div class="card-block border-bottom">
                                             <div class="row align-items-center justify-content-center">
-                                                <div class="col-auto">
-                                                    <i class="fab fa-google-plus-g text-c-red f-36"></i>
-                                                </div>
                                                 <div class="col text-right">
-                                                    <h3>10,500</h3>
-                                                    <h5 class="text-c-blue mb-0">+5.9% <span class="text-muted">Total Likes</span></h5>
+                                                    <h3>Técnicos registrados</h3>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-block">
                                             <div class="row align-items-center justify-content-center card-active">
                                                 <div class="col-6">
-                                                    <h6 class="text-center m-b-10"><span class="text-muted m-r-5">Target:</span>25,998</h6>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-c-theme" role="progressbar" style="width:80%;height:6px;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <h6 class="text-center  m-b-10"><span class="text-muted m-r-5">Duration:</span>7,753</h6>
-                                                    <div class="progress">
-                                                        <div class="progress-bar progress-c-theme2" role="progressbar" style="width:50%;height:6px;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="text-center m-b-10">
+                                                        <?php
+                                                            if(!empty($row9))
+                                                                foreach($row9 as $rows)
+                                                                { 
+                                                            ?>                                                                   
+                                                            <?php echo $rows['tec_nome']; ?>
+                                                            <?php echo "<hr>" ?>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!--[social-media section] end-->
-                                <div class="col-xl-8 col-md-12 m-b-30">
-                                    <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>User</th>
-                                                        <th>Activity</th>
-                                                        <th>Time</th>
-                                                        <th>Status</th>
-                                                        <th class="text-right"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <h6 class="m-0"><img class="rounded-circle  m-r-10" style="width:40px;" src="assets/images/user/avatar-3.jpg" alt="activity-user">Silje Larsen</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">Dog the quick brown</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">10:23 AM</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0 text-c-purple">Delayed</h6>
-                                                        </td>
-                                                        <td class="text-right"><i class="fas fa-circle text-c-purple f-10"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user">Ida Jorgensen</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">The quick brown fox</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">3:28 PM</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0 text-c-green">Done</h6>
-                                                        </td>
-                                                        <td class="text-right"><i class="fas fa-circle text-c-green f-10"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h6 class="m-0"><img class="rounded-circle  m-r-10" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user">Albert Andersen</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">Jumps over the lazy</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">2:37 PM</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0 text-c-red">Missed</h6>
-                                                        </td>
-                                                        <td class="text-right"><i class="fas fa-circle text-c-red f-10"></i></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h6 class="m-0"><img class="rounded-circle  m-r-10" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user">Ida Jorgensen</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">The quick brown fox</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0">4:28 PM</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="m-0 text-c-green">Done</h6>
-                                                        </td>
-                                                        <td class="text-right"><i class="fas fa-circle text-c-green f-10"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                             <!-- [ Main Content ] end -->
                         </div>
