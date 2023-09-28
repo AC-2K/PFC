@@ -70,7 +70,7 @@
                         <label>Geral</label>
                     </li>
                     <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
-                        <a href="tecnicoPage.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Inicio</span></a>
+                        <a href="mainPage.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Inicio</span></a>
                     </li>
                     <li class="nav-item pcoded-menu-caption">
                         <label>Entidades</label>
@@ -80,8 +80,11 @@
                         <ul class="pcoded-submenu">
                             <li class=""><a href="paginaServico.php" class="">Operações</a></li>
                             <li class=""><a href="listaServico.php" class="">Lista</a></li>
-                            <li class=""><a href="material.php" class="">Material</a></li>
-                            <li class=""><a href="historico.php" class="">Historico</a></li>
+                            <?php if($_SESSION["usuario"] == 1 || $_SESSION["usuario"] == 2){
+                                echo ' <li><a href="material.php">Material</a></li>';
+                                echo ' <li><a href="historico.php">Historico</a></li>';
+                            }
+                            ?>
                         </ul>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
@@ -91,14 +94,18 @@
                             <li class=""><a href="listaRelatorio.php" class="">Lista</a></li>
                         </ul>
                     </li>
-                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Clientes</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class=""><a href="paginaCliente.php" class="">Operações</a></li>
-                            <li class=""><a href="listaCliente.php" class="">Lista</a></li>
-                            <li class=""><a href="estatistica.php" class="">Estatisticas</a></li>
-                        </ul>
-                    </li>
+                    <?php 
+                    if($_SESSION["usuario"] == 1 || $_SESSION["usuario"] == 2 ){
+                    echo ' <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">';           
+                        echo '<a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Clientes</span></a>';
+                        echo '<ul class="pcoded-submenu">';
+                            echo '<li class=""><a href="paginaCliente.php" class="">Operações</a></li>';
+                            echo '<li class=""><a href="listaCliente.php" class="">Lista</a></li>';
+                            echo '<li class=""><a href="estatistica.php" class="">Estatisticas</a></li>';
+                        echo '</ul>';     
+                    echo '</li>'; 
+                    }
+                    ?>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
                         <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Levantamentos</span></a>
                         <ul class="pcoded-submenu">
@@ -106,15 +113,18 @@
                             <li class=""><a href="listaLevantamento.php" class="">Lista</a></li>
                         </ul>
                     </li>
-                    
                     <li class="nav-item pcoded-menu-caption">
                         <label>Opções</label>
                     </li>
-                    <li data-username="form elements advance componant validation masking wizard picker select" class="nav-item">
-                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Dark mode</span></a>
-                    </li>
+                    <?php 
+                    if($_SESSION["usuario"] == 2 ){
+                    echo ' <li data-username="form elements advance componant validation masking wizard picker select" class="nav-item">';           
+                        echo '<a href="admin.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Privilegios</span></a>';
+                    echo '</li>';
+                    }
+                    ?>
                     <li data-username="Table bootstrap datatable footable" class="nav-item">
-                        <a href="auth-signin.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Sign out</span></a>
+                        <a href="sair.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Sign out</span></a>
                     </li>
                 </ul>
             </div>
@@ -170,6 +180,7 @@
                                                                         <th>Descrição do servico</th>
                                                                         <th>Observação</th>
                                                                         <th>Anexo</th>
+                                                                        <th>Data</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -183,6 +194,7 @@
                                                                         <td> <?php echo $rows['servico_descricaoGeral']; ?> </td>
                                                                         <td> <?php echo $rows['lev_observacao']; ?> </td>
                                                                         <td> <?php echo $rows['lev_anexo']; ?> </td>
+                                                                        <td> <?php echo $rows['lev_data']; ?> </td>
 
                                                                     </tr>
                                                                     <?php } ?>

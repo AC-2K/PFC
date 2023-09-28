@@ -1,8 +1,7 @@
 <?php
     include 'DB.php';
-
-    $sql = "select * from levantamento inner join servicotecnico On servico_id = id_servico
-    inner join cliente On cliente_id = id_cliente ORDER by cliente_nome";
+    
+    $sql = "select * from tecnico";
     $result = ($conn->query($sql));
     //declare array to store the data of database
     $row = []; 
@@ -13,16 +12,15 @@
         $row = $result->fetch_all(MYSQLI_ASSOC);  
     }
 
-
-    $sql2 = "select * from servicotecnico";
-    $result2 = ($conn->query($sql2));
+    $sql7 = "select * from gestor";
+    $result7 = ($conn->query($sql7));
     //declare array to store the data of database
-    $row2 = []; 
+    $row7 = []; 
     
-    if ($result2->num_rows > 0) 
+    if ($result7->num_rows > 0) 
     {
         // fetch all data from db into array 
-        $row2 = $result2->fetch_all(MYSQLI_ASSOC);  
+        $row7 = $result7->fetch_all(MYSQLI_ASSOC);  
     }
 ?>
 <!DOCTYPE html>
@@ -146,6 +144,7 @@
     </nav>
     <!-- [ navigation menu ] end -->
 
+
     <!-- [ Header ] start -->
     <header class="navbar pcoded-header navbar-expand-lg navbar-light">
         <div class="m-header">
@@ -180,15 +179,18 @@
                                 <div class="col-sm-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5>Gestão de Levantamntos</h5>
+                                            <h5>Controle de Tecnicos</h5>
                                             <hr>
-                                            <button type="submit" class="btn btn-success" id="levantamentoCreate" >Criar</button>
-                                            <button type="submit" class="btn btn-primary" id="levantamentoACT" >Actualizar</button>
-                                            <button type="submit" class="btn btn-danger" id="levantamentoDel" >Apagar</button>
+                                            <button type="submit" class="btn btn-success" id="tecnicoCreate" >Criar</button>
+                                            <button type="submit" class="btn btn-danger" id="tecnicoDel" >Apagar</button>
+                                            <hr>
+                                            <h5>Controle de Gestor</h5>
+                                            <button type="submit" class="btn btn-success" id="gestorCreate" >Criar</button>
+                                            <button type="submit" class="btn btn-danger" id="gestorDEL">Apagar</button>
                                             <hr>
 
-                                            <!-- Modal 1  - Criar Levantamento -->
-                                            <div class="modal fade" id="myModalCreateLevantamento" role="dialog">
+                                            <!-- Modal 1  - Criar tecnico -->
+                                            <div class="modal fade" id="myModalCreateTecnico" role="dialog">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
@@ -198,97 +200,27 @@
                                                         <form action="metodoCriar.php" method="POST" enctype="multipart/form-data" >
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="selectTipo">Serviço técnico disponivel</label> 
-                                                                    <select class="form-control" name="selectTipo" id="selectTipo">
-                                                                        <?php
-                                                                            if(!empty($row2))
-                                                                            foreach($row2 as $rows)
-                                                                            { 
-                                                                        ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
+                                                                    <label for="nome">Nome</label>
+                                                                    <input type="text" class="form-control" name="nome" id="nome" aria-describedby="nome" placeholder="Nome">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="descricao">Descricao geral</label>
-                                                                    <textarea class="form-control "name="descricao"  id="descricao" rows="20"></textarea>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="anexo">anexo</label>
-                                                                    <input type="file" class="form-control" name="anexo" id="anexo" aria-describedby="anexo" placeholder="anexo">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="data">Data de execução</label>
-                                                                    <input type="date" class="form-control"  name="data" id="data" aria-describedby="data" placeholder="data">
+                                                                    <label for="password">pass</label>
+                                                                    <input type="password" class="form-control" name="password" id="password" aria-describedby="password" placeholder="password">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-danger" data-dismiss="modal">Negar</button>
-                                                                <button class="btn btn-primary" name="submeter" value="levantamento" id="criarLevantamento">continuar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="tecnico" id="criarTecnico">continuar</button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- ------------------------------------------------------------------------ -->
-                                            <!-- Modal 2  - Actualizar Levantamento -->
-                                            <div class="modal fade" id="myModalActLevantamento" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-                                                        <form action="metodoUpdate.php" method="POST" enctype="multipart/form-data" >
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="selectLevantamento">Levantamento em causa</label> 
-                                                                    <select class="form-control" name="selectLevantamento" id="selectLevantamento">
-                                                                        <?php
-                                                                            if(!empty($row))
-                                                                            foreach($row as $rows)
-                                                                            { 
-                                                                        ?>                                                                   
-                                                                            <option><?php echo $rows['lev_id']; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="selectTipo">Serviço técnico disponivel</label> 
-                                                                    <select class="form-control" name="selectTipo" id="selectTipo">
-                                                                        <?php
-                                                                            if(!empty($row))
-                                                                            foreach($row as $rows)
-                                                                            { 
-                                                                        ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="area">Descricao geral</label>
-                                                                    <textarea class="form-control "name="descricao"  id="descricao" rows="20"></textarea>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="anexo">anexo</label>
-                                                                    <input type="file" class="form-control" name="anexo" aria-describedby="anexo" placeholder="anexo">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="data">Data de execução</label>
-                                                                    <input type="date" class="form-control"  name="data" id="data" aria-describedby="data" placeholder="data">
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
-                                                                <button class="btn btn-primary" name="submeter" value="levantamento" id="actualizarLevantamento">continuar</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <!-- ------------------------------------------------------------------------ -->
-                                            <!-- Modal 3  - Apagar Levantamento -->
-                                            <div class="modal fade" id="myModalDeleteLevantamento" role="dialog">
+                                            <!-- Modal 2  - Apagar tecnico -->
+                                            <div class="modal fade" id="myModalDeleteTecnico" role="dialog">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
@@ -298,20 +230,91 @@
                                                         <form action="metodoDelete.php" method="POST" enctype="multipart/form-data" >
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="nome">ID Levantamento</label>
-                                                                    <input type="number" class="form-control" name="IDlevantamento" aria-describedby="nome" placeholder="Nome">
+                                                                    <label for="nome">Nome</label>
+                                                                    <select class="form-control" name="nome" id="nome">
+                                                                        <?php
+                                                                            if(!empty($row))
+                                                                            foreach($row as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['tec_nome']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-danger" data-dismiss="modal">Negar</button>
-                                                                <button class="btn btn-primary" name="submeter" value="levantamento" id="apagarLevantamento">continuar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="tecnico" id="apagarTecnico">continuar</button>
                                                             </div>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- ------------------------------------------------------------------------ -->
-                                            <h5>Lista Levantamentos</h5>
+
+                                            <!-- Modal 4  - Criar gestor -->
+                                            <div class="modal fade" id="myModalCreateGestor" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="metodoCriar.php" method="POST" enctype="multipart/form-data" >
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="nome">Nome</label>
+                                                                    <input type="text" class="form-control" name="nome" id="nome" aria-describedby="nome" placeholder="Nome">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="password">pass</label>
+                                                                    <input type="password" class="form-control" name="password" id="password" aria-describedby="password" placeholder="password">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="gestor" id="criarGestor">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------------------------------------------------ -->
+                                            <!-- Modal 5  - Apagar gestor -->
+                                            <div class="modal fade" id="myModalDeleteGestor" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="metodoDelete.php" method="POST" enctype="multipart/form-data" >
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="nome">Nome</label>
+                                                                    <select class="form-control" name="nome" id="nome">
+                                                                        <?php
+                                                                            if(!empty($row7))
+                                                                            foreach($row7 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['ges_nome']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="telefone" id="apagarGestor">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------------------------------------------------ -->
+                                        </div>
+                                        <div class="card-body">
+                                            <h5>Lista gestor</h5>
                                             <hr>
                                             <!-- [ Hover-table ] start -->
                                             <div class="col-xl-12">
@@ -321,12 +324,42 @@
                                                             <table class="table table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Codigo de levantamento</th>
-                                                                        <th>Cliente</th>
-                                                                        <th>Descrição do servico</th>
-                                                                        <th>ID do servico</th>
-                                                                        <th>Observação</th>
-                                                                        <th>Data</th>
+                                                                        <th>Nome</th>
+                                                                        <th>password</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                        if(!empty($row7))
+                                                                        foreach($row7 as $rows)
+                                                                        { 
+                                                                    ?>                                                                   
+                                                                    <tr>
+                                                                        <td> <?php echo $rows['ges_nome']; ?> </td>
+                                                                        <td> <?php echo $rows['ges_pass']; ?> </td>
+                                                                    </tr>
+                                                                    <?php } ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- [ Hover-table ] end -->
+                                        </div>
+                                        <div class="card-body">
+                                            <h5>Lista tecnico</h5>
+                                            <hr>
+                                            <!-- [ Hover-table ] start -->
+                                            <div class="col-xl-12">
+                                                <div class="card">
+                                                    <div class="card-block table-border-style">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Nome</th>
+                                                                        <th>password</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -336,13 +369,8 @@
                                                                         { 
                                                                     ?>                                                                   
                                                                     <tr>
-                                                                        <td> <?php echo $rows['lev_id']; ?> </td>
-                                                                        <td> <?php echo $rows['cliente_nome']; ?> </td>
-                                                                        <td> <?php echo $rows['servico_descricaoGeral']; ?> </td>
-                                                                        <td> <?php echo $rows['servico_id']; ?> </td>
-                                                                        <td> <?php echo $rows['lev_observacao']; ?> </td>
-                                                                        <td> <?php echo $rows['lev_data']; ?> </td>
-                                                                    
+                                                                        <td> <?php echo $rows['tec_nome']; ?> </td>
+                                                                        <td> <?php echo $rows['tec_pass']; ?> </td>
                                                                     </tr>
                                                                     <?php } ?>
                                                                 </tbody>
@@ -355,30 +383,40 @@
                                         </div>
                                         <script> 
                                             $('document').ready(function(){
-                                                $('#levantamentoCreate').on('click',function(e){
+                                                $('#tecnicoCreate').on('click',function(e){
                                                     e.preventDefault();
-                                                    $('#myModalCreateLevantamento').modal('toggle');
+                                                    $('#myModalCreateTecnico').modal('toggle');
 
                                                 });
-                                                $('#levantamentoACT').on('click',function(e){
+                                                $('#tecnicoDel').on('click',function(e){
                                                     e.preventDefault();
-                                                    $('#myModalActLevantamento').modal('toggle');
+                                                    $('#myModalDeleteTecnico').modal('toggle');
 
                                                 });
-                                                $('#levantamentoDel').on('click',function(e){
+
+                                                $('#gestorCreate').on('click',function(e){
                                                     e.preventDefault();
-                                                    $('#myModalDeleteLevantamento').modal('toggle');
+                                                    $('#myModalCreateGestor').modal('toggle'); 
+
+                                                });
+                                                $('#gestorDEL').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalDeleteGestor').modal('toggle');
 
                                                 });
                                             //------------------------------------------------------------------------
-                                                $('#criarLevantamento').on('click',function(){
+                                                $('#criarTecnico').on('click',function(){
                                                                 $('form').submit();
                                                 });
 
-                                                $('#actualizarLevantamento').on('click',function(){
+                                                $('#apagarTecnico').on('click',function(){
                                                                 $('form').submit();
                                                 });
-                                                $('#apagarLevantamento').on('click',function(){
+
+                                                $('#criarGestor').on('click',function(){
+                                                                $('form').submit();
+                                                });
+                                                $('#apagarGestor').on('click',function(){
                                                                 $('form').submit();
                                                 });
                                             });    

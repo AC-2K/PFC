@@ -5,6 +5,13 @@
    $password = "";
    $dbname = "pfc";
 
+   if (!isset($_SESSION["usuario"])) {
+      echo '<script type="text/javascript">';
+      echo 'alert("Pagina indisponivel, nao acedeu");';;
+      echo 'window.location.href = "auth-signin.html";';
+      echo '</script>';
+  }
+
      
    // connect the database with the server
    $conn = new mysqli($servername,$username,$password,$dbname);
@@ -15,5 +22,11 @@
        echo "Failed to connect to MySQL: " . $conn -> connect_error;
        exit();
     }
+
+    function phpAlert($msg) {
+      echo '<script type="text/javascript">';
+      echo 'alert("' . $msg . '");';
+      echo '</script>';
+  }
 ?>
 
