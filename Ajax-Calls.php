@@ -1,5 +1,4 @@
 <?php
-   session_start();
    $servername = "localhost";
    $username = "root";
    $password = "";
@@ -28,9 +27,6 @@
     header('Content-Type: application/json');
     echo json_encode($data);
     
-
-
-      
 ?>
 
 

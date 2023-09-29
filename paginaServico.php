@@ -404,7 +404,7 @@
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                         </div>
-                                                        <form action="metodoDelete.php" method="POST" enctype="multipart/form-data" >
+                                                        <form action="metodoDelete.php" method="POST">
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="servico">Servico tecnico</label>

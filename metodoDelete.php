@@ -6,17 +6,11 @@
     if($value == 'servico'){
         try {
             $servico = $_POST['servico'];
-            
-            $sql = "select servico_id from servicotecnico WHERE servico_descricaoGeral = ? ";
-            $result = ($conn->query($sql));
-            while($row = mysqli_fetch_assoc($result)) {
-                $var1 = $row["servico_id"];
-            }
-                         
+                      
             $stmt = $conn->prepare(" DELETE FROM servicotecnico WHERE servico_id = ? ");
-            $stmt->bind_param("i", $var1);
+            $stmt->bind_param("i", $servico);
                                  
-            if ($stmt->execute() ) {
+            if ($stmt->execute()) {
                 $stmt->close();
                 echo '<script type="text/javascript">';
                 echo 'alert("Serviço Apagado");';
@@ -26,11 +20,11 @@
                 throw new Exception("Erro - Inseriu dados invalidos");
             }           
         }catch (\Throwable $th) {
-                $msg =  " " . $th->getMessage();
-                echo '<script type="text/javascript">';
-                echo 'alert("'.$msg.'");';
-                echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
+            $msg =  " " . $th->getMessage();
+            echo '<script type="text/javascript">';
+            echo 'alert("'.$msg.'");';
+            echo '</script>';
+            echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
         
     }
@@ -208,7 +202,7 @@
         try {
             $relatorio = $_POST['selectRelatorio'];
                          
-            $stmt = $conn->prepare(" DELETE FROM relatorio WHERE id_servico = ? ");
+            $stmt = $conn->prepare(" DELETE FROM relatorio WHERE rel_id = ? ");
             $stmt->bind_param("i", $relatorio);
                                  
             if ($stmt->execute() ) {
@@ -233,15 +227,15 @@
     //Levantamento
     if($value == 'levantamento'){
         try {
-            $levantamento = $_POST['selectLevantamento'];
+            $levantamento = $_POST['IDlevantamento'];
                          
-            $stmt = $conn->prepare(" DELETE FROM levantamento WHERE id_servico = ? ");
+            $stmt = $conn->prepare(" DELETE FROM levantamento WHERE lev_id = ? ");
             $stmt->bind_param("i", $levantamento);
                                  
             if ($stmt->execute() ) {
                 $stmt->close();
                 echo '<script type="text/javascript">';
-                echo 'alert("Relatorio Apagado");';
+                echo 'alert("Levantamento Apagado");';
                 echo 'window.location.href = "paginaLevantamento.php";';
                 echo '</script>';
             }else{

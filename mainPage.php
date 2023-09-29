@@ -292,7 +292,7 @@
                                                                     $sql10 = "SELECT COUNT(*) FROM relatorio WHERE id_servico = '$condicao' ";
                                                                     $result10 = mysqli_query($conn, $sql10);
                                                                     $row10 = mysqli_fetch_array($result10);
-                                                                    $conn->close();
+                                                                  
                                                                   
                                                                 ?><p class="m-0">Etapas completas: <?php echo $row10[0]; ?> de <?php echo $limite; ?></p>
                                                             </td>
@@ -309,8 +309,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--[ Recent Users ] end-->
-
                                 <!-- [ statistics year chart ] start -->
                                 <div class="col-xl-4 col-md-6">
                                     <div class="card">
@@ -340,6 +338,34 @@
                                 </div>
                                 <!-- [ statistics year chart ] end -->
                                 <hr>
+                                <div class="col-md-12 col-xl-4">
+                                    <div class="card card-social">
+                                        <div class="card-block border-bottom">
+                                            <div class="row align-items-center justify-content-center">
+                                                <div class="col text-right">
+                                                    <h3>Técnicos registrados</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-block">
+                                            <div class="row align-items-center justify-content-center card-active">
+                                                <div class="col-6">
+                                                    <div class="text-center m-b-10">
+                                                        <?php
+                                                            if(!empty($row9))
+                                                                foreach($row9 as $rows)
+                                                                { 
+                                                            ?>                                                                   
+                                                            <?php echo $rows['tec_nome']; ?>
+                                                            <?php echo "<hr>" ?>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!---->
                                 <!--[social-media section] start-->
                                 <div class="col-md-12 col-xl-4">
                                     <div class="card card-social">
@@ -395,34 +421,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-xl-4">
-                                    <div class="card card-social">
-                                        <div class="card-block border-bottom">
-                                            <div class="row align-items-center justify-content-center">
-                                                <div class="col text-right">
-                                                    <h3>Técnicos registrados</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-block">
-                                            <div class="row align-items-center justify-content-center card-active">
-                                                <div class="col-6">
-                                                    <div class="text-center m-b-10">
-                                                        <?php
-                                                            if(!empty($row9))
-                                                                foreach($row9 as $rows)
-                                                                { 
-                                                            ?>                                                                   
-                                                            <?php echo $rows['tec_nome']; ?>
-                                                            <?php echo "<hr>" ?>
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+
                             <!-- [ Main Content ] end -->
                         </div>
                     </div>
@@ -436,6 +436,7 @@
     <script src="assets/js/vendor-all.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.js"></script>
-
+   
 </body>
 </html>
+

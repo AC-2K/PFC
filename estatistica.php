@@ -1,10 +1,19 @@
+<?php
+include 'DB.php'; 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Datta Able Free Bootstrap 4 Admin Template</title>
+    <title>CRM - Amiware</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!-- Meta -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,14 +25,13 @@
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="assets/plugins/animation/css/animate.min.css">
     <!-- vendor css -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
-    
-
-
 
 </head>
+
 <body>
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
@@ -112,15 +120,16 @@
         </div>
     </nav>
     <!-- [ navigation menu ] end -->
+
     <!-- [ Header ] start -->
     <header class="navbar pcoded-header navbar-expand-lg navbar-light">
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
-            <a href="#" class="b-brand">
+            <a href="index.html" class="b-brand">
                    <div class="b-bg">
                        <i class="feather icon-trending-up"></i>
                    </div>
-                   <span class="b-title">Amiware</span>
+                   <span class="b-title">Datta Able</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="javascript:">
@@ -147,14 +156,40 @@
                                 <div class="col-xl-6">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Bar [ Simple ] Chart</h5>
+                                            <h5>Numero de Serviços por técnicos</h5>
                                         </div>
                                         <div class="card-block">
-                                            <div id="morris-bar-chart" style="height:300px"></div>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th> Técnico</th>
+                                                        <th> Numero de serviço</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <?php                                                        
+                                                        $sql11 = "SELECT tec_nome,COUNT(id_tec) as soma FROM servicotecnico INNER JOIN tecnico on id_tec = tec_id GROUP BY tec_nome ";
+                                                        $result11 = mysqli_query($conn, $sql11);
+
+                                                        if ($result11->num_rows > 0) {
+                                                            // output data of each row
+                                                            while($row11 = $result11->fetch_assoc()) {
+                                                                echo '<td>'.$row11["tec_nome"].'</td>';
+                                                                echo '<td>'.$row11["soma"].'</td>';
+                                                            }
+                                                        } else {
+                                                            echo "0 results";
+                                                        }
+                                                        $conn->close();
+                                                    ?>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6">
+                                <!-- <div class="col-xl-6">
                                     <div class="card">
                                         <div class="card-header">
                                             <h5>Bar [ Stacked ] Chart</h5>
@@ -163,47 +198,7 @@
                                             <div id="morris-bar-stacked-chart" style="height:300px"></div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Line [ Angle ] Chart</h5>
-                                        </div>
-                                        <div class="card-block">
-                                            <div id="morris-area-chart" style="height:300px"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Area [ Smooth ] Chart</h5>
-                                        </div>
-                                        <div class="card-block">
-                                            <div id="morris-area-curved-chart" style="height:300px"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Line [ Angle ] Chart</h5>
-                                        </div>
-                                        <div class="card-block">
-                                            <div id="morris-line-chart" class="ChartShadow" style="height:300px"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Line [ Smooth ] Chart</h5>
-                                        </div>
-                                        <div class="card-block">
-                                            <div id="morris-line-smooth-chart" class="ChartShadow" style="height:300px"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                                 <div class="col-xl-6">
                                     <div class="card">
                                         <div class="card-header">
@@ -275,6 +270,64 @@
     <!-- Required Js -->
     <script src="assets/js/vendor-all.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/pages/graficos.js"></script>
+    <script src="assets/js/pcoded.js"></script>
+    <script>
+        let listaCliente = new Array();
+
+        let nomeClientes = new Array();
+        let numeroClientes = new Array();
+
+        function definirArray( objectoArray ){
+
+            for (let index = 0; index < objectoArray.length; index++) {
+                let element = objectoArray[index];
+                listaCliente.push(element);      
+            }
+        }
+
+        function adicionarDados( objectoArray ){
+
+            for (let index = 0; index < objectoArray.length; index++) {
+                let element = objectoArray[index];
+                nomeClientes.push(element.cliente_nome);      
+            }
+
+            for (let index = 0; index < objectoArray.length; index++) {
+                let element = objectoArray[index];
+                numeroClientes.push(element.cliente_numServico);      
+            }
+        }
+
+        fetch('Ajax-Calls.php')
+        .then(response => response.json())
+        .then(data => {    
+            definirArray(data);
+            adicionarDados(listaCliente);
+
+            const barColors = [
+                "#b91d47",
+                "#00aba9",
+                "#2b5797",
+                "#e8c3b9",
+                "#1e7145"
+                ];
+
+                new Chart("myChart", {
+                type: "doughnut",
+                data: {
+                    labels: nomeClientes,
+                    datasets: [{
+                    backgroundColor: barColors,
+                    data: numeroClientes
+                    }]
+                },
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    </script>
+    <script src="assets\js\chart.min.js"> </script>
+
 </body>
 </html>

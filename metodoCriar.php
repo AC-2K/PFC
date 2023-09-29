@@ -296,7 +296,7 @@
             if ($stmt->execute() ) {
                 $stmt->close();
                 echo '<script type="text/javascript">';
-                echo 'alert("Relatorio criado");';
+                echo 'alert("Levantamento criado");';
                 echo 'window.location.href = "paginaLevantamento.php";';
                 echo '</script>';
             }else{

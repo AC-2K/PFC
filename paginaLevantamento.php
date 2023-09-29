@@ -215,7 +215,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="anexo">anexo</label>
-                                                                    <input type="file" class="form-control" name="anexo" id="anexo" aria-describedby="anexo" placeholder="anexo">
+                                                                    <input type="text" class="form-control" name="anexo" id="anexo" aria-describedby="anexo" placeholder="anexo">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="data">Data de execução</label>
@@ -243,7 +243,7 @@
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="selectLevantamento">Levantamento em causa</label> 
-                                                                    <select class="form-control" name="selectLevantamento" id="selectLevantamento">
+                                                                    <select class="form-control" name="selectLevantamento" id="selectLevantamento" required>
                                                                         <?php
                                                                             if(!empty($row))
                                                                             foreach($row as $rows)
@@ -254,24 +254,12 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="selectTipo">Serviço técnico disponivel</label> 
-                                                                    <select class="form-control" name="selectTipo" id="selectTipo">
-                                                                        <?php
-                                                                            if(!empty($row))
-                                                                            foreach($row as $rows)
-                                                                            { 
-                                                                        ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="area">Descricao geral</label>
+                                                                    <label for="descricao">Descricao geral</label>
                                                                     <textarea class="form-control "name="descricao"  id="descricao" rows="20"></textarea>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="anexo">anexo</label>
-                                                                    <input type="file" class="form-control" name="anexo" aria-describedby="anexo" placeholder="anexo">
+                                                                    <input type="text" class="form-control" name="anexo" aria-describedby="anexo" placeholder="anexo">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="data">Data de execução</label>

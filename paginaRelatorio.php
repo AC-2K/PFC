@@ -257,18 +257,6 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="selectServico">Serviço técnico disponivel</label> 
-                                                                    <select class="form-control" name="selectServico" id="selectServico">
-                                                                        <?php
-                                                                            if(!empty($row2))
-                                                                            foreach($row2 as $rows)
-                                                                            { 
-                                                                        ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
                                                                     <label for="data">Data de execução</label>
                                                                     <input type="date" class="form-control"  name="data" id="data" aria-describedby="data" placeholder="data">
                                                                 </div>
