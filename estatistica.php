@@ -1,6 +1,30 @@
 <?php
 include 'DB.php'; 
 
+$sql2 = "select * from servicotecnico 
+inner join cliente On cliente_id = id_cliente ORDER by cliente_nome";
+$result2 = ($conn->query($sql2));
+//declare array to store the data of database
+$row2 = []; 
+
+if ($result2->num_rows > 0) 
+{
+    // fetch all data from db into array 
+    $row2 = $result2->fetch_all(MYSQLI_ASSOC);  
+}
+
+$sql4 = "select * from estatisticas
+inner join servicotecnico On servico_id = id_servico
+inner join cliente On cliente_id = id_cliente ORDER by cliente_nome";
+$result4 = ($conn->query($sql4));
+//declare array to store the data of database
+$row4 = []; 
+
+if ($result4->num_rows > 0) 
+{
+    // fetch all data from db into array 
+    $row4 = $result4->fetch_all(MYSQLI_ASSOC);  
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +53,10 @@ include 'DB.php';
     <link rel="stylesheet" href="assets/plugins/animation/css/animate.min.css">
     <!-- vendor css -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 
 </head>
 
@@ -167,7 +195,6 @@ include 'DB.php';
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
                                                     <?php                                                        
                                                         $sql11 = "SELECT tec_nome,COUNT(id_tec) as soma FROM servicotecnico INNER JOIN tecnico on id_tec = tec_id GROUP BY tec_nome ";
                                                         $result11 = mysqli_query($conn, $sql11);
@@ -175,15 +202,16 @@ include 'DB.php';
                                                         if ($result11->num_rows > 0) {
                                                             // output data of each row
                                                             while($row11 = $result11->fetch_assoc()) {
+                                                                echo '<tr>';
                                                                 echo '<td>'.$row11["tec_nome"].'</td>';
                                                                 echo '<td>'.$row11["soma"].'</td>';
+                                                                echo '</tr>';
                                                             }
                                                         } else {
                                                             echo "0 results";
                                                         }
                                                         $conn->close();
                                                     ?>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -209,7 +237,210 @@ include 'DB.php';
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-12">
+                                    <div class="card Recent-Users">
+                                        <div class="card-header">
+                                            <h5>Estatisticas de serviços</h5>
+                                        </div>
+                                        <div class="card-block px-0 py-3">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <?php
+                                                        if(!empty($row4))
+                                                            foreach($row4 as $rows){ 
+                                                    ?>                                                                   
+                                                    <tbody>
+                                                        <tr class="unread">
+                                                            <?php 
+                                                                if ($rows['cliente_sexo'] == 'Masculino') {
+                                                                 echo '<td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg"" alt="activity-user"></td>';
+                                                                }
+                                                                if ($rows['cliente_sexo'] == 'Feminino') {
+                                                                    echo '<td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td>';
+                                                                }
+                                                                if ($rows['cliente_sexo'] == 'Nao especificado') {
+                                                                    echo '<td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-3.jpg" alt="activity-user"></td>';
+                                                                }
+                                    
+                                                            ?>
+                                                            <td>
+                                                                <h4 class="mb-1"><?php echo $rows['cliente_nome']; ?></h4>
+                                                                <h6 class="m-0"><?php echo $rows['servico_descricaoGeral']; ?></h6>
+                                                                <hr>
+                                                                <h5 class="m-0"><?php echo "Nivel de satisfação - ".$rows['est_nivelSatisfacao']." de 10"; ?></h5>
+                                                                <br>
+                                                                <h5 class="mb-1"><?php echo "Pontuação dado pelo cliente - ".$rows['est_pontuacaoServico']." de 10"; ?></h5>
+                                                            </td>
+                                                            <td>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>                            
+                                                    <?php } ?>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- [ Morris Chart ] end -->
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5>Gestão de estatisticas</h5>
+                                            <hr>
+                                            <button type="submit" class="btn btn-success" id="estatisticaCreate" >Criar</button>
+                                            <button type="submit" class="btn btn-danger" id="estatisticaDel" >Apagar</button>
+                                            <hr>
+                                            <!-- Modal 1  - Criar Estatistica -->
+                                            <div class="modal fade" id="myModalCreateEstatistica" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="metodoCriar.php" method="POST" enctype="multipart/form-data" >
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="servico">Serviço técnico </label> 
+                                                                    <select class="form-control" name="servico" id="servico">
+                                                                        <?php
+                                                                            if(!empty($row2))
+                                                                            foreach($row2 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['servico_id']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="satisfacao">Nivel de satisfacao</label>
+                                                                    <select class="form-control" name="satisfacao" id="satisfacao">                                                               
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                        <option>5</option>
+                                                                        <option>6</option>
+                                                                        <option>7</option>
+                                                                        <option>8</option>
+                                                                        <option>9</option>
+                                                                        <option>10</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="pontuacao">Pontuação</label>
+                                                                    <select class="form-control" name="pontuacao" id="pontuacao">                                                               
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                        <option>5</option>
+                                                                        <option>6</option>
+                                                                        <option>7</option>
+                                                                        <option>8</option>
+                                                                        <option>9</option>
+                                                                        <option>10</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="comentario">Comentário do cliente</label>
+                                                                    <textarea class="form-control " name="comentario" id="area" rows="20"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="estatistica" id="criarEstatistica">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal 1  - Apagar Estatistica -->
+                                            <div class="modal fade" id="myModalDeleteEstatistica" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="metodoDelete.php" method="POST" enctype="multipart/form-data" >
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="servico">ID Serviço</label>
+                                                                    <select class="form-control" name="servico" id="selectTipo">
+                                                                        <?php
+                                                                            if(!empty($row4))
+                                                                            foreach($row4 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['id_servico']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="estatistica" id="apagarEstatistica">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script> 
+                                            $('document').ready(function(){
+                                                $('#estatisticaCreate').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalCreateEstatistica').modal('toggle');
+
+                                                });
+                                                $('#estatisticaDel').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalDeleteEstatistica').modal('toggle');
+
+                                                });
+                                            //------------------------------------------------------------------------
+                                                $('#criarEstatistica').on('click',function(){
+                                                                $('form').submit();
+                                                });
+
+                                                $('#apagarEstatistica').on('click',function(){
+                                                                $('form').submit();
+                                                });
+                                            });    
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5>Servicos tecnicos</h5>
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Descrição</th>
+                                                        <th>Cliente </th>                                                               
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                    if(!empty($row2))
+                                                        foreach($row2 as $rows)
+                                                        { 
+                                                    ?>                                                                   
+                                                    <tr>
+                                                        <td> <?php echo $rows['servico_id']; ?> </td>
+                                                        <td> <?php echo $rows['servico_descricaoGeral']; ?> </td>
+                                                        <td> <?php echo $rows['cliente_nome']; ?> </td>
+                                                    </tr>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- [ Main Content ] end -->
                         </div>

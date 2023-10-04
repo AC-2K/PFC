@@ -305,4 +305,31 @@
             
     }
 
+    //estatistica
+    if($value == 'estatistica'){
+        try {
+            $servico = $_POST['servico'];
+                         
+            $stmt = $conn->prepare(" DELETE FROM estatisticas WHERE id_servico = ? ");
+            $stmt->bind_param("s", $nome);
+                                 
+            if ($stmt->execute() ) {
+                $stmt->close();
+                echo '<script type="text/javascript">';
+                echo 'alert("Estatistica Apagado");';
+                echo 'window.location.href = "estatistica.php";';
+                echo '</script>';
+            }else{
+                throw new Exception("Erro - Inseriu dados invalidos");
+            }           
+        }catch (\Throwable $th) {
+                $msg =  " " . $th->getMessage();
+                echo '<script type="text/javascript">';
+                echo 'alert("'.$msg.'");';
+                echo '</script>';
+                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
+        }
+            
+    }
+
 ?>

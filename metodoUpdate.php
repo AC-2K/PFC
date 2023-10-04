@@ -4,7 +4,6 @@
     //Metodo update
     function updateField($mysqli, $tableName, $fieldName, $newValue, $primaryKey, $primaryKeyValue, $paginaSaida) {
         
-        if ($newValue != '') {
             // Prepare the UPDATE statement
             $sql = "UPDATE $tableName SET $fieldName = ? WHERE $primaryKey = ?";
             $stmt = $mysqli->prepare($sql);
@@ -29,7 +28,7 @@
         
             // Close the statement
             $stmt->close();
-        }        
+               
     }
 
     $value = $_POST['submeter'];
@@ -64,27 +63,27 @@
                 $var2 = $row3["cliente_id"];
             }
             
-            if(isset($duracao)){ updateField($conn,"servicotecnico","servico_estDuracao",$duracao,"servico_id",$servico,"paginaServico.php");}
-            if(isset($descricao)){updateField($conn,"servicotecnico","servico_descricaoGeral",$descricao,"servico_id",$servico,"paginaServico.php");}
+            if(isset($duracao) && !empty($duracao) ){ updateField($conn,"servicotecnico","servico_estDuracao",$duracao,"servico_id",$servico,"paginaServico.php");}
+            if(isset($descricao) && !empty($descricao)){updateField($conn,"servicotecnico","servico_descricaoGeral",$descricao,"servico_id",$servico,"paginaServico.php");}
 
-            if(isset($estado)){
-                updateField($conn,"servicotecnico","servico_estado",$estado,"servico_id",$servico,"paginaServico.php");
-                if ($estado = "Terminado") {
+            if(isset($estado) && !empty($estado) ){
+                if ($estado == 'Terminado') {
                     $stmt = $conn->prepare(" INSERT INTO historicoservico (id_servico, his_dataInsercao) VALUES (?, ?) ");
                     $stmt->bind_param("is", $servico, date("Y-m-d") );
                     $stmt->execute();
                 }
+                updateField($conn,"servicotecnico","servico_estado",$estado,"servico_id",$servico,"paginaServico.php");
             }
-            if(isset($dataInicio)){updateField($conn,"servicotecnico","servico_dataInicio",$dataInicio,"servico_id",$servico,"paginaServico.php");}
+            if(isset($dataInicio) && !empty($dataInicio) ){updateField($conn,"servicotecnico","servico_dataInicio",$dataInicio,"servico_id",$servico,"paginaServico.php");}
 
-            if(isset($dataFim)){updateField($conn,"servicotecnico","servico_dataFim",$dataFim,"servico_id",$servico,"paginaServico.php");}
-            if(isset($aprovacao)){updateField($conn,"servicotecnico","servico_aprovacao",$aprovacao,"servico_id",$servico,"paginaServico.php");}
+            if(isset($dataFim) && !empty($dataFim) ){updateField($conn,"servicotecnico","servico_dataFim",$dataFim,"servico_id",$servico,"paginaServico.php");}
+            if(isset($aprovacao) && !empty($aprovacao) ){updateField($conn,"servicotecnico","servico_aprovacao",$aprovacao,"servico_id",$servico,"paginaServico.php");}
 
-            if(isset($numeroEtapas)){updateField($conn,"servicotecnico","servico_numeroEtapas",$numeroEtapas,"servico_id",$servico,"paginaServico.php");}
-            if(isset($var1)){updateField($conn,"servicotecnico","id_tec",$var1,"servico_id",$servico,"paginaServico.php");}
+            if(isset($numeroEtapas) && !empty($numeroEtapas) ){updateField($conn,"servicotecnico","servico_numeroEtapas",$numeroEtapas,"servico_id",$servico,"paginaServico.php");}
+            if(isset($var1) && !empty($var1) ){updateField($conn,"servicotecnico","id_tec",$var1,"servico_id",$servico,"paginaServico.php");}
 
-            if(isset($var2)){updateField($conn,"servicotecnico","id_cliente",$var2,"servico_id",$servico,"paginaServico.php");}
-            if(isset($tipo)){updateField($conn,"servicotecnico","servico_Tipo",$tipo,"servico_id",$servico,"paginaServico.php");}
+            if(isset($var2) && !empty($var2) ){updateField($conn,"servicotecnico","id_cliente",$var2,"servico_id",$servico,"paginaServico.php");}
+            if(isset($tipo) && !empty($tipo) ){updateField($conn,"servicotecnico","servico_Tipo",$tipo,"servico_id",$servico,"paginaServico.php");}
 
             echo '<script type="text/javascript">';
             echo 'window.location.href = "paginaServico.php";';
@@ -114,10 +113,10 @@
             }
              
             
-            if(isset($nome)){updateField($conn,"equipamento","eqm_nome",$nome,"eqm_id",$var1,"material.php");}
+            if(isset($nome) && !empty($nome) ){updateField($conn,"equipamento","eqm_nome",$nome,"eqm_id",$var1,"material.php");}
 
-            if(isset($fabricante)){updateField($conn,"equipamento","eqm_fabricante",$fabricante,"eqm_id",$var1,"material.php");}
-            if(isset($modelo)){updateField($conn,"equipamento","eqm_modelo",$modelo,"eqm_id",$var1,"material.php");}
+            if(isset($fabricante) && !empty($fabricante) ){updateField($conn,"equipamento","eqm_fabricante",$fabricante,"eqm_id",$var1,"material.php");}
+            if(isset($modelo) && !empty($modelo) ){updateField($conn,"equipamento","eqm_modelo",$modelo,"eqm_id",$var1,"material.php");}
 
             echo '<script type="text/javascript">';
             echo 'window.location.href = "material.php";';
@@ -162,13 +161,13 @@
             }
              
             
-            if(isset($equipamento)){updateField($conn,"listamaterial","id_eqm",$var1,"list_id",$lista,"material.php");}
+            if(isset($equipamento) && !empty($equipamento) ){updateField($conn,"listamaterial","id_eqm",$var1,"list_id",$lista,"material.php");}
 
-            if(isset($servico)){updateField($conn,"listamaterial","id_servico",$var2,"list_id",$lista,"material.php");}
-            if(isset($sistema)){updateField($conn,"listamaterial","id_sis",$var3,"list_id",$lista,"material.php");}
+            if(isset($servico) && !empty($servico) ){updateField($conn,"listamaterial","id_servico",$var2,"list_id",$lista,"material.php");}
+            if(isset($sistema) && !empty($sistema) ){updateField($conn,"listamaterial","id_sis",$var3,"list_id",$lista,"material.php");}
 
-            if(isset($loja)){updateField($conn,"listamaterial","list_loja",$loja,"list_id",$lista,"material.php");}
-            if(isset($quantidade)){updateField($conn,"listamaterial","list_quantidade",$quantidade,"list_id",$lista,"material.php");}
+            if(isset($loja) && !empty($loja) ){updateField($conn,"listamaterial","list_loja",$loja,"list_id",$lista,"material.php");}
+            if(isset($quantidade) && !empty($quantidade) ){updateField($conn,"listamaterial","list_quantidade",$quantidade,"list_id",$lista,"material.php");}
 
             echo '<script type="text/javascript">';
             echo 'window.location.href = "material.php";';
@@ -199,13 +198,12 @@
                 $var1 = $row["cliente_id"];
             }
             
-            if(isset($nome)){updateField($conn,"cliente","cliente_nome",$nome,"cliente_id",$var1,"paginaCliente.php");}
 
-            if(isset($mail)){updateField($conn,"cliente","cliente_email",$mail,"cliente_id",$var1,"paginaCliente.php");}
-            if(isset($selectTipo)){updateField($conn,"cliente","cliente_tipo",$selectTipo,"cliente_id",$var1,"paginaCliente.php");}
+            if(isset($mail) && !empty($mail) ){updateField($conn,"cliente","cliente_email",$mail,"cliente_id",$var1,"paginaCliente.php");}
+            if(isset($selectTipo) && !empty($selectTipo) ){updateField($conn,"cliente","cliente_tipo",$selectTipo,"cliente_id",$var1,"paginaCliente.php");}
 
-            if(isset($selectGenero)){updateField($conn,"cliente","cliente_sexo",$selectGenero,"cliente_id",$var1,"paginaCliente.php");}
-            if(isset($responsavel)){updateField($conn,"cliente","cliente_responsavel",$responsavel,"cliente_id",$var1,"paginaCliente.php");}
+            if(isset($selectGenero) && !empty($selectGenero) ){updateField($conn,"cliente","cliente_sexo",$selectGenero,"cliente_id",$var1,"paginaCliente.php");}
+            if(isset($responsavel) && !empty($responsavel) ){updateField($conn,"cliente","cliente_responsavel",$responsavel,"cliente_id",$var1,"paginaCliente.php");}
 
             echo '<script type="text/javascript">';
             echo 'window.location.href = "paginaCliente.php";';
@@ -231,12 +229,12 @@
             $etapa = $_POST['etapa'];
             $anexo = $_POST['anexo'];
             
-            if(isset($data)){updateField($conn,"relatorio","rel_data",$data,"rel_id",$relatorio,"paginaRelatorio.php");}
+            if(isset($data) && !empty($data) ){updateField($conn,"relatorio","rel_data",$data,"rel_id",$relatorio,"paginaRelatorio.php");}
 
-            if(isset($descricao)){updateField($conn,"relatorio","rel_descricao",$descricao,"rel_id",$relatorio,"paginaRelatorio.php");}
-            if(isset($etapa)){updateField($conn,"relatorio","rel_etapa",$etapa,"rel_id",$relatorio,"paginaRelatorio.php");}
+            if(isset($descricao) && !empty($descricao) ){updateField($conn,"relatorio","rel_descricao",$descricao,"rel_id",$relatorio,"paginaRelatorio.php");}
+            if(isset($etapa) && !empty($etapa) ){updateField($conn,"relatorio","rel_etapa",$etapa,"rel_id",$relatorio,"paginaRelatorio.php");}
 
-            if(isset($anexo)){updateField($conn,"relatorio","rel_anexo",$anexo,"rel_id",$relatorio,"paginaRelatorio.php");}
+            if(isset($anexo) && !empty($anexo) ){updateField($conn,"relatorio","rel_anexo",$anexo,"rel_id",$relatorio,"paginaRelatorio.php");}
 
             echo '<script type="text/javascript">';
             echo 'window.location.href = "paginaRelatorio.php";';
@@ -261,11 +259,11 @@
             $descricao = $_POST['descricao'];
             $anexo = $_POST['anexo'];
                                 
-            if(isset($data)){updateField($conn,"levantamento","lev_data",$data,"lev_id",$levantamento,"paginaLevantamento.php");}
+            if(isset($data) && !empty($data) ){updateField($conn,"levantamento","lev_data",$data,"lev_id",$levantamento,"paginaLevantamento.php");}
 
-            if(isset($descricao)){updateField($conn,"levantamento","lev_observacao",$descricao,"lev_id",$levantamento,"paginaLevantamento.php");}
+            if(isset($descricao) && !empty($descricao) ){updateField($conn,"levantamento","lev_observacao",$descricao,"lev_id",$levantamento,"paginaLevantamento.php");}
 
-            if(isset($anexo)){updateField($conn,"levantamento","lev_anexo",$anexo,"lev_id",$levantamento,"paginaLevantamento.php");}
+            if(isset($anexo) && !empty($anexo) ){updateField($conn,"levantamento","lev_anexo",$anexo,"lev_id",$levantamento,"paginaLevantamento.php");}
 
             echo '<script type="text/javascript">';
             echo 'window.location.href = "paginaLevantamento.php";';
@@ -280,4 +278,6 @@
         } 
             
     }
+
+    
 ?>

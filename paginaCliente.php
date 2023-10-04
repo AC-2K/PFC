@@ -244,8 +244,8 @@
                                                         <form action="metodoUpdate.php" method="POST" enctype="multipart/form-data" >
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="selectCliente">Cliente</label> 
-                                                                    <select class="form-control" name="selectCliente" id="selectCliente" required>
+                                                                    <label for="nome">Cliente</label> 
+                                                                    <select class="form-control" name="nome" id="nome" required>
                                                                         <?php
                                                                             if(!empty($row))
                                                                             foreach($row as $rows)
@@ -266,6 +266,7 @@
                                                                 <div class="form-group">
                                                                     <label for="selectTipo">Tipo de cliente</label> 
                                                                     <select class="form-control" name="selectTipo" id="selectTipo">
+                                                                        <option></option>
                                                                         <option>Individual</option>
                                                                         <option>Associação</option>
                                                                         <option>Empresa</option>
@@ -276,6 +277,7 @@
                                                                 <div class="form-group">
                                                                     <label for="selectGenero">Genero</label>
                                                                     <select class="form-control" name="selectGenero" id="selectGenero">
+                                                                        <option></option>
                                                                         <option>Masculino</option>
                                                                         <option>Feminino</option>
                                                                         <option>Nao especificado</option>

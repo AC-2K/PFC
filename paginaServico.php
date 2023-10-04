@@ -309,7 +309,7 @@
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="servico">Servico tecnico</label>
-                                                                    <select class="form-control" name="servico" id="servico">
+                                                                    <select class="form-control" name="servico" id="servico" required>
                                                                         <?php
                                                                             if(!empty($row4))
                                                                             foreach($row4 as $rows)
@@ -330,9 +330,11 @@
                                                                 <div class="form-group">
                                                                     <label for="selectEstado">Estado</label> 
                                                                     <select class="form-control" name="selectEstado" id="selectEstado">
+                                                                        <option></option>
                                                                         <option>Andamento</option>
                                                                         <option>Em espera</option>
                                                                         <option>Parado</option>
+                                                                        <option>Terminado</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
@@ -346,6 +348,7 @@
                                                                 <div class="form-group">
                                                                     <label for="selectAprovacao">Aprovação</label>
                                                                     <select class="form-control" name="selectAprovacao" id="selectAprovacao">
+                                                                        <option></option>
                                                                         <option>Sim</option>
                                                                         <option>Nao</option>
                                                                     </select>
@@ -357,6 +360,7 @@
                                                                 <div class="form-group">
                                                                     <label for="tipo">Tipo de serviço</label>
                                                                     <select class="form-control" name="selectTipo" id="selectTipo">
+                                                                        <option></option>
                                                                         <option>Manutenção</option>
                                                                         <option>Instalação</option>
                                                                         <option>Consultoria</option>
@@ -365,7 +369,9 @@
                                                                 <div class="form-group">
                                                                     <label for="tecnico">Tecnico</label>
                                                                     <select class="form-control" name="tecnico" id="tecnico">
+                                                                        <option></option>
                                                                         <?php
+                                                                            
                                                                             if(!empty($row))
                                                                             foreach($row as $rows)
                                                                             { 
@@ -375,8 +381,9 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="cliente">CLiente</label>
+                                                                    <label for="cliente">Cliente</label>
                                                                     <select class="form-control" name="cliente" id="cliente">
+                                                                        <option></option>
                                                                         <?php
                                                                             if(!empty($row2))
                                                                             foreach($row2 as $rows)

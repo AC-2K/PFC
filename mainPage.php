@@ -278,7 +278,18 @@
                                                     <tbody>
                                                         <!-- TODO demonstrar a percentagem do trabalho -->
                                                         <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user"></td>
+                                                            <?php 
+                                                                if ($rows['cliente_sexo'] == 'Masculino') {
+                                                                 echo '<td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg"" alt="activity-user"></td>';
+                                                                }
+                                                                if ($rows['cliente_sexo'] == 'Feminino') {
+                                                                    echo '<td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td>';
+                                                                }
+                                                                if ($rows['cliente_sexo'] == 'Nao especificado') {
+                                                                    echo '<td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-3.jpg" alt="activity-user"></td>';
+                                                                }
+                                    
+                                                            ?>
                                                             <td>
                                                                 <h6 class="mb-1"><?php echo $rows['cliente_nome']; ?></h6>
                                                                 <p class="m-0"><?php echo $rows['servico_descricaoGeral']; ?></p>
@@ -297,7 +308,15 @@
                                                                 ?><p class="m-0">Etapas completas: <?php echo $row10[0]; ?> de <?php echo $limite; ?></p>
                                                             </td>
                                                             <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i><?php echo $rows['servico_estado']; ?></h6>
+                                                                <?php 
+                                                                    if ($rows['servico_estado'] == 'Andamento') {
+                                                                        ?><h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i><?php echo $rows['servico_estado']; ?></h6><?php 
+                                                                    }
+                                                                    else {
+                                                                        ?><h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i><?php echo $rows['servico_estado']; ?></h6><?php 
+                                                                    }
+  
+                                                                ?>
                                                                 <hr>
                                                                 <p class="m-0">Tecnico responsavel: <?php echo $rows['tec_nome']; ?></p>
                                                             </td>
@@ -343,7 +362,7 @@
                                         <div class="card-block border-bottom">
                                             <div class="row align-items-center justify-content-center">
                                                 <div class="col text-right">
-                                                    <h3>Técnicos registrados</h3>
+                                                    <h5>Técnicos registrados</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -372,7 +391,7 @@
                                         <div class="card-block border-bottom">
                                             <div class="row align-items-center justify-content-center">
                                                 <div class="col text-right">
-                                                    <h3>Sistema de segurança</h3>
+                                                    <h5>Sistema de segurança</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -399,7 +418,7 @@
                                         <div class="card-block border-bottom">
                                             <div class="row align-items-center justify-content-center">
                                                 <div class="col text-right">
-                                                    <h3>Clientes registrados</h3>
+                                                    <h5>Clientes registrados</h5>
                                                 </div>
                                             </div>
                                         </div>

@@ -396,4 +396,35 @@
         }
             
     }
+
+    //estatistica
+    if($value == 'estatistica'){
+        try {
+            $servico = $_POST['servico'];
+            $satisfacao = $_POST['satisfacao'];
+            $pontuacao = $_POST['pontuacao'];
+            $comentario = $_POST['comentario'];
+                
+            $stmt = $conn->prepare(" INSERT INTO estatisticas (id_servico, est_pontuacaoServico,est_nivelSatisfacao,est_comentario) VALUES (?,?,?,?) ");
+            $stmt->bind_param("iiis", $servico, $satisfacao,$pontuacao,$comentario);
+
+            if ($stmt->execute() ) {
+                $stmt->close();
+                echo '<script type="text/javascript">';
+                echo 'alert("Dados inseridos");';
+                echo 'window.location.href = "estatistica.php";';
+                echo '</script>';
+            }else{
+                throw new Exception("Erro - Inseriu dados invalidos");
+            } 
+                          
+        }catch (\Throwable $th) {
+            $msg =  " " . $th->getMessage();
+            echo '<script type="text/javascript">';
+            echo 'alert("'.$msg.'");';
+            echo 'window.location.href = "estatistica.php";';
+            echo '</script>';
+        }
+            
+    }
 ?>

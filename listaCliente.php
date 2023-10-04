@@ -1,6 +1,7 @@
 <?php
 include 'DB.php'; 
 
+
 $sql = "select * from cliente inner join telefone On cliente_id = id_cliente";
 $result = ($conn->query($sql));
 //declare array to store the data of database
@@ -11,6 +12,17 @@ if ($result->num_rows > 0)
     // fetch all data from db into array 
     $row = $result->fetch_all(MYSQLI_ASSOC);  
 }
+
+$sql7 = "select * from cliente";
+$result7 = ($conn->query($sql7));
+$row7 = []; 
+
+if ($result7->num_rows > 0) 
+{ 
+    $row7 = $result7->fetch_all(MYSQLI_ASSOC);  
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,8 +197,8 @@ if ($result->num_rows > 0)
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                        if(!empty($row))
-                                                                        foreach($row as $rows)
+                                                                        if(!empty($row7))
+                                                                        foreach($row7 as $rows)
                                                                         { 
                                                                     ?>                                                                   
                                                                     <tr>
