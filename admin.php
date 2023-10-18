@@ -68,12 +68,7 @@
     <nav class="pcoded-navbar">
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
-                <a href="#" class="b-brand">
-                    <div class="b-bg">
-                        <i> <img src="assets/images/favicon.ico" alt="" width="100%"></i>
-                    </div>
-                    <span class="b-title">Amiware</span>
-                </a>
+                    <i> <img src="assets/images/logo.png" alt="" width="70%"> </i>
                 <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
             </div>
             <div class="navbar-content scroll-div">

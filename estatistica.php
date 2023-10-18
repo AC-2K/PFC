@@ -73,12 +73,7 @@ if ($result4->num_rows > 0)
     <nav class="pcoded-navbar">
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
-                <a href="#" class="b-brand">
-                    <div class="b-bg">
-                        <i> <img src="assets/images/favicon.ico" alt="" width="100%"></i>
-                    </div>
-                    <span class="b-title">Amiware</span>
-                </a>
+                    <i> <img src="assets/images/logo.png" alt="" width="70%"> </i>
                 <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
             </div>
             <div class="navbar-content scroll-div">
@@ -268,10 +263,12 @@ if ($result4->num_rows > 0)
                                                                 <h6 class="m-0"><?php echo $rows['servico_descricaoGeral']; ?></h6>
                                                                 <hr>
                                                                 <h5 class="m-0"><?php echo "Nivel de satisfação - ".$rows['est_nivelSatisfacao']." de 10"; ?></h5>
-                                                                <br>
+                                                                <hr>
                                                                 <h5 class="mb-1"><?php echo "Pontuação dado pelo cliente - ".$rows['est_pontuacaoServico']." de 10"; ?></h5>
-                                                            </td>
-                                                            <td>
+                                                                <hr>
+                                                                <h5 class="m-0">Comentário</h5>
+                                                                <br>
+                                                                <p class="m-0"><?php echo $rows['est_comentario']; ?></hp>
                                                             </td>
                                                         </tr>
                                                     </tbody>                            

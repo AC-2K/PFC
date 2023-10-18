@@ -110,12 +110,7 @@
     <nav class="pcoded-navbar">
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
-                <a href="#" class="b-brand">
-                    <div class="b-bg">
-                        <i> <img src="assets/images/favicon.ico" alt="" width="100%"></i>
-                    </div>
-                    <span class="b-title">Amiware</span>
-                </a>
+                    <i> <img src="assets/images/logo.png" alt="" width="70%"> </i>
                 <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
             </div>
             <div class="navbar-content scroll-div">
@@ -224,10 +219,10 @@
                                 <div class="col-md-6 col-xl-4">
                                     <div class="card daily-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Serviços feito</h6>
+                                            <h6 class="mb-4">Serviços terminados</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> <?php echo $row2[0]; ?></h3> 
+                                                    <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-thumbs-up"> &nbsp </i>- <?php echo $row2[0]; ?></h3> 
                                                 </div>
                                             </div>
                                         </div>
@@ -241,7 +236,7 @@
                                             <h6 class="mb-4">Serviços em execução</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i><?php echo $row[0]; ?></h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i><?php echo $row[0]; ?></h3>
                                                 </div>
                                             </div>
                                         </div>
@@ -255,7 +250,7 @@
                                             <h6 class="mb-4">Levantamentos Feitos</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i> <?php echo $row3[0]; ?></h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-edit"> &nbsp </i>- <?php echo $row3[0]; ?></h3>
                                                 </div>
                                             </div>
                                         </div>
