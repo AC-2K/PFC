@@ -7,16 +7,29 @@
     $user = $_POST['username'];
     $pass = $_POST['pass'];
 
+
     $_SESSION["usuario"] = 0;
       
-    $query = " SELECT * from tecnico where `tec_nome` ='". $user ."' and tec_pass='".$pass."'";
-    $result = $link->query($query);
+    $stmt = $link->prepare(" SELECT * from tecnico where `tec_nome` = ?");
+    $stmt->bind_param("s", $user);
+
+    //TODO Aceder o sistema usando a senha hasheada
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = $result->fetch_array();
           
         if (mysqli_num_rows($result) == 1) {
-            echo '<script type="text/javascript">';
-            echo 'alert("Bem vindo - Tecnico");';;
-            echo 'window.location.href = "mainPage.php";';
-            echo '</script>';
+            for ($i=0; $i < sizeof($data); $i++) { 
+                $hashed_password = $data['tec_pass'];
+
+                if(password_verify($pass, $hashed_password)) {
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Bem vindo - Tecnico");';;
+                    echo 'window.location.href = "mainPage.php";';
+                    echo '</script>';
+                }
+            }
+            echo "diferente";
         } else {
             $_SESSION["usuario"] = 1;
             $query = "SELECT * FROM gestor WHERE ges_nome = '". $user ."' AND ges_pass = '".$pass."' ";

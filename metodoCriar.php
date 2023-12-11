@@ -177,9 +177,10 @@
             $selectTipo = $_POST['selectTipo'];
             $selectGenero = $_POST['selectGenero'];
             $responsavel = $_POST['responsavel'];
+            $var = 0;
             
             $stmt = $conn->prepare(" INSERT INTO cliente (cliente_nome,cliente_email,cliente_sexo,cliente_tipo,cliente_responsavel,cliente_numServico) VALUES (?, ?, ?, ?, ?,?) ");
-            $stmt->bind_param("sssssi", $nome, $mail, $selectTipo, $selectGenero, $responsavel,0);
+            $stmt->bind_param("sssssi", $nome, $mail, $selectTipo, $selectGenero, $responsavel, $var);
                                  
             if ($stmt->execute() ) {
                 $stmt->close();
@@ -331,8 +332,11 @@
                 echo 'window.location.href = "admin.php";';
                 echo '</script>';
             } else {
+                //TODO - Implementar o hash para acesso login
+                $hash = password_hash($pass, PASSWORD_DEFAULT);
+                
                 $stmt = $conn->prepare(" INSERT INTO tecnico (tec_nome, tec_pass) VALUES (?, ?) ");
-                $stmt->bind_param("ss", $nome, $pass);
+                $stmt->bind_param("ss", $nome, $hash);
                                              
                 if ($stmt->execute() ) {
                     $stmt->close();
@@ -367,9 +371,11 @@
 
             $result = ($conn->query($sql));
             $result2 = ($conn->query($sql2));
+
+            $hash = password_hash($pass, PASSWORD_DEFAULT);
                 
             $stmt = $conn->prepare(" INSERT INTO gestor (ges_nome, ges_pass) VALUES (?, ?) ");
-            $stmt->bind_param("ss", $nome, $pass);
+            $stmt->bind_param("ss", $nome, $hash);
 
             if (mysqli_num_rows($result) > 0 || mysqli_num_rows($result2) > 0) {
                 echo '<script type="text/javascript">';
