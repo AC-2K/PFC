@@ -36,7 +36,7 @@
     //servico tecnico
     if($value == 'servico'){
         try {
-            $servico = $_POST['servico'];
+            $servico = preg_replace('/\D/', '', $_POST['servico']);
             $duracao = $_POST['duracao'];
             $descricao = $_POST['descricao'];
             $estado = $_POST['selectEstado'];
@@ -68,8 +68,9 @@
 
             if(isset($estado) && !empty($estado) ){
                 if ($estado == 'Terminado') {
+                    $datafim = date("Y-m-d");
                     $stmt = $conn->prepare(" INSERT INTO historicoservico (id_servico, his_dataInsercao) VALUES (?, ?) ");
-                    $stmt->bind_param("is", $servico, date("Y-m-d") );
+                    $stmt->bind_param("is", $servico, $datafim );
                     $stmt->execute();
                 }
                 updateField($conn,"servicotecnico","servico_estado",$estado,"servico_id",$servico,"paginaServico.php");
@@ -222,7 +223,7 @@
     //Relatorio
     if($value == 'relatorio'){
         try {
-            $relatorio = $_POST['selectRelatorio'];
+            $relatorio = preg_replace('/\D/', '', $_POST['selectRelatorio']);
 
             $data = $_POST['data'];
             $descricao = $_POST['descricao'];
@@ -253,7 +254,7 @@
     //Levantamento
     if($value == 'levantamento'){
         try {
-            $levantamento = $_POST['selectLevantamento'];
+            $levantamento = preg_replace('/\D/', '', $_POST['selectLevantamento']);
 
             $data = $_POST['data'];
             $descricao = $_POST['descricao'];

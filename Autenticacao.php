@@ -13,14 +13,15 @@
     $stmt = $link->prepare(" SELECT * from tecnico where `tec_nome` = ?");
     $stmt->bind_param("s", $user);
 
-    //TODO Aceder o sistema usando a senha hasheada
+
     $stmt->execute();
     $result = $stmt->get_result();
-    $data = $result->fetch_array();
+    $data = [];
+    $data = $result->fetch_all(MYSQLI_ASSOC);  
           
         if (mysqli_num_rows($result) == 1) {
-            for ($i=0; $i < sizeof($data); $i++) { 
-                $hashed_password = $data['tec_pass'];
+            foreach($data as $datas){ 
+                $hashed_password = $datas['tec_pass'];
 
                 if(password_verify($pass, $hashed_password)) {
                     echo '<script type="text/javascript">';
@@ -28,26 +29,49 @@
                     echo 'window.location.href = "mainPage.php";';
                     echo '</script>';
                 }
-            }
-            echo "diferente";
+            }            
         } else {
             $_SESSION["usuario"] = 1;
-            $query = "SELECT * FROM gestor WHERE ges_nome = '". $user ."' AND ges_pass = '".$pass."' ";
-            $result = mysqli_query($link,$query);
+            $stmt = $link->prepare(" SELECT * from gestor where `ges_nome` = ?");
+            $stmt->bind_param("s", $user);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = [];
+            $data = $result->fetch_all(MYSQLI_ASSOC);  
+
             if (mysqli_num_rows($result) == 1) {
-                echo '<script type="text/javascript">';
-                echo 'alert("Bem vindo - Gestor");';;
-                echo 'window.location.href = "mainPage.php";';
-                echo '</script>';
+                foreach($data as $datas){ 
+                    $hashed_password = $datas['ges_pass'];
+    
+                    if(password_verify($pass, $hashed_password)) {
+                        echo '<script type="text/javascript">';
+                        echo 'alert("Bem vindo - Gestor");';;
+                        echo 'window.location.href = "mainPage.php";';
+                        echo '</script>';
+                    }
+                } 
+
             }else {
                 $_SESSION["usuario"] = 2;
-                $query = "SELECT * FROM admin WHERE ad_user = '". $user ."' AND ad_pass = '".$pass."' ";
-                $result = mysqli_query($link,$query);
+                $stmt = $link->prepare(" SELECT * from admin where `ad_user` = ?");
+                $stmt->bind_param("s", $user);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $data = [];
+                $data = $result->fetch_all(MYSQLI_ASSOC);  
+
+
                 if (mysqli_num_rows($result) == 1) {
-                    echo '<script type="text/javascript">';
-                    echo 'alert("Bem vindo - Admin");';;
-                    echo 'window.location.href = "mainPage.php";';
-                    echo '</script>';
+                    foreach($data as $datas){ 
+                        $hashed_password = $datas['ad_pass'];
+        
+                        if(password_verify($pass, $hashed_password)) {
+                            echo '<script type="text/javascript">';
+                            echo 'alert("Bem vindo - Admin");';;
+                            echo 'window.location.href = "mainPage.php";';
+                            echo '</script>';
+                        }
+                    } 
                 }else{
                     echo '<script type="text/javascript">';
                     echo 'alert("Usuario invalido");';;

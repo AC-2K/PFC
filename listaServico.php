@@ -214,7 +214,6 @@
                                                                         { 
                                                                     ?>                                                                   
                                                                     <tr>
-                                                                        <td> <?php echo $rows['servico_id']; ?> </td>
                                                                         <td> <?php echo $rows['cliente_nome']; ?> </td>
 
                                                                         <td> <?php echo $rows['servico_estDuracao']; ?> </td>

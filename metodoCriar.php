@@ -56,7 +56,7 @@
     //Local de execucao
     if($value == 'local'){
         try {
-            $servico = $_POST['servico'];
+            $servico =  preg_replace('/\D/', '', $_POST['servico']);
             $pais = $_POST['pais'];
             $provincia = $_POST['provincia'];
             $endereco = $_POST['endereco'];
@@ -332,7 +332,6 @@
                 echo 'window.location.href = "admin.php";';
                 echo '</script>';
             } else {
-                //TODO - Implementar o hash para acesso login
                 $hash = password_hash($pass, PASSWORD_DEFAULT);
                 
                 $stmt = $conn->prepare(" INSERT INTO tecnico (tec_nome, tec_pass) VALUES (?, ?) ");
@@ -386,7 +385,7 @@
                 if ($stmt->execute() ) {
                     $stmt->close();
                     echo '<script type="text/javascript">';
-                    echo 'alert("Tecnico criado");';
+                    echo 'alert("Gestor criado");';
                     echo 'window.location.href = "admnin.php";';
                     echo '</script>';
                 }else{

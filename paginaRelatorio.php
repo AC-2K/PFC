@@ -247,7 +247,7 @@
                                                                             foreach($row as $rows)
                                                                             { 
                                                                         ?>                                                                   
-                                                                            <option><?php echo $rows['rel_id']; ?></option>
+                                                                            <option><?php echo $rows['rel_id']."-".$rows['cliente_nome']; ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
@@ -277,7 +277,7 @@
                                                 </div>
                                             </div>
                                             <!-- ------------------------------------------------------------------------ -->
-                                            <!-- Modal 3  - Apagar cliente -->
+                                            <!-- Modal 3  - Apagar levantamento -->
                                             <div class="modal fade" id="myModalDeleteLevantamento" role="dialog">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->

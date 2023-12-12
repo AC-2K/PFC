@@ -1,7 +1,7 @@
 <?php
     include 'DB.php';
     
-    $sql = "select * from tecnico";
+    $sql = "select tec_nome from tecnico";
     $result = ($conn->query($sql));
     //declare array to store the data of database
     $row = []; 
@@ -12,7 +12,7 @@
         $row = $result->fetch_all(MYSQLI_ASSOC);  
     }
 
-    $sql7 = "select * from gestor";
+    $sql7 = "select ges_nome from gestor";
     $result7 = ($conn->query($sql7));
     //declare array to store the data of database
     $row7 = []; 
@@ -320,7 +320,6 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Nome</th>
-                                                                        <th>password</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -331,7 +330,6 @@
                                                                     ?>                                                                   
                                                                     <tr>
                                                                         <td> <?php echo $rows['ges_nome']; ?> </td>
-                                                                        <td> <?php echo $rows['ges_pass']; ?> </td>
                                                                     </tr>
                                                                     <?php } ?>
                                                                 </tbody>
@@ -354,7 +352,6 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>Nome</th>
-                                                                        <th>password</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -365,7 +362,6 @@
                                                                     ?>                                                                   
                                                                     <tr>
                                                                         <td> <?php echo $rows['tec_nome']; ?> </td>
-                                                                        <td> <?php echo $rows['tec_pass']; ?> </td>
                                                                     </tr>
                                                                     <?php } ?>
                                                                 </tbody>

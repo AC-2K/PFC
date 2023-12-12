@@ -34,7 +34,7 @@
         $row3 = $result3->fetch_all(MYSQLI_ASSOC);  
     }
 
-    $sql4 = "select servico_id from servicotecnico";
+    $sql4 = "select * from servicotecnico inner join cliente On cliente_id = id_cliente";
     $result4 = ($conn->query($sql4));
     //declare array to store the data of database
     $row4 = []; 
@@ -310,7 +310,7 @@
                                                                             foreach($row4 as $rows)
                                                                             { 
                                                                         ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
+                                                                            <option><?php echo $rows['servico_id']." - ".$rows['cliente_nome']."- ".$rows['servico_descricaoGeral']; ?></option>
                                                                         <?php } ?>
                                                                     </select>                                                                
                                                                 </div>
@@ -451,7 +451,7 @@
                                                                             foreach($row4 as $rows)
                                                                             { 
                                                                         ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
+                                                                            <option><?php echo $rows['servico_id']." - ".$rows['cliente_nome']."- ".$rows['servico_descricaoGeral']; ?></option>
                                                                         <?php } ?>
                                                                     </select>   
                                                                 </div>
