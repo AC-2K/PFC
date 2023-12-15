@@ -2,6 +2,6 @@
     session_start();    
     session_unset();
     session_destroy();
-    echo '<script> window.location.href = "auth-signin.html"; </script>';
+    echo '<script> window.location.href = "index.html"; </script>';
 
 ?>
