@@ -308,27 +308,20 @@ if ($result4->num_rows > 0)
                                 <div class="col-lg-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h5>Servicos tecnicos</h5>
-                                            <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Descrição</th>
-                                                        <th>Cliente </th>                                                               
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                            <h5>Serviços Cancelados</h5>
+                                            <hr>
+                                            <select name="cancelado" onchange="showParameter(this.value,'txtHint','getCancelado.php?q=')" class="form-control">
+                                                    <option value=""> </option>
                                                 <?php
-                                                    if(!empty($row2))
-                                                        foreach($row2 as $rows)
-                                                        { 
-                                                    ?>                                                                   
-                                                    <tr>
-                                                        <td> <?php echo $rows['servico_descricaoGeral']; ?> </td>
-                                                        <td> <?php echo $rows['cliente_nome']; ?> </td>
-                                                    </tr>
+                                                if(!empty($row2))
+                                                foreach($row2 as $rows)
+                                                { 
+                                                ?>                                                                   
+                                                    <option value="<?php echo $rows['cliente_nome']; ?>" ><?php echo $rows['cliente_nome']; ?></option>
                                                 <?php } ?>
-                                                </tbody>
-                                            </table>
+                                            </select>
+                                            <hr>
+                                            <div id="txtHint"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -340,59 +333,12 @@ if ($result4->num_rows > 0)
             </div>
         </div>
     </div>
-    <!-- [ Main Content ] end -->
-
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 11]>
-        <div class="ie-warning">
-            <h1>Warning!!</h1>
-            <p>You are using an outdated version of Internet Explorer, please upgrade
-               <br/>to any of the following web browsers to access this website.
-            </p>
-            <div class="iew-container">
-                <ul class="iew-download">
-                    <li>
-                        <a href="http://www.google.com/chrome/">
-                            <img src="assets/images/browser/chrome.png" alt="Chrome">
-                            <div>Chrome</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.mozilla.org/en-US/firefox/new/">
-                            <img src="assets/images/browser/firefox.png" alt="Firefox">
-                            <div>Firefox</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.opera.com">
-                            <img src="assets/images/browser/opera.png" alt="Opera">
-                            <div>Opera</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.apple.com/safari/">
-                            <img src="assets/images/browser/safari.png" alt="Safari">
-                            <div>Safari</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                            <img src="assets/images/browser/ie.png" alt="">
-                            <div>IE (11 & above)</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <p>Sorry for the inconvenience!</p>
-        </div>
-    <![endif]-->
-    <!-- Warning Section Ends -->
-
+ 
     <!-- Required Js -->
     <script src="assets/js/vendor-all.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.js"></script>
+    <script src="assets/js/AJAX.js"></script>
     <script>
         let listaCliente = new Array();
 
