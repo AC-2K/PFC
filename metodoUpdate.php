@@ -71,6 +71,12 @@
                     $stmt->bind_param("is", $servico, $datafim );
                     $stmt->execute();
                 }
+                if ($estado == 'Cancelado' && isset($descricao) && !empty($descricao) ) {
+                    $datafim = date("Y-m-d");
+                    $stmt = $conn->prepare("INSERT INTO servicocancelado (id_servico,cancelado_causa,cancelado_data) VALUES (?,?,?)");
+                    $stmt->bind_param("iss", $servico,$descricao,$datafim);
+                    $stmt->execute();
+                }
                 updateField($conn,"servicotecnico","servico_estado",$estado,"servico_id",$servico,"paginaServico.php");
             }
             if(isset($dataInicio) && !empty($dataInicio) ){updateField($conn,"servicotecnico","servico_dataInicio",$dataInicio,"servico_id",$servico,"paginaServico.php");}

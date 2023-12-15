@@ -1,7 +1,7 @@
 <?php
    include 'DB.php';
    
-   $sql = "select * from servicotecnico
+   $sql = "select cliente_nome from servicotecnico
    inner join tecnico On tec_id = id_tec
    inner join cliente On cliente_id = id_cliente ORDER by cliente_nome";
 
@@ -16,9 +16,7 @@
        $row = $result->fetch_all(MYSQLI_ASSOC);  
    }
 
-   $sql2 = "select * from localexecucao
-   inner join servicotecnico On servico_id = id_servico
-   inner join cliente On cliente_id = id_cliente";
+   $sql2 = "select cliente_nome from cliente";
   
    $result2 = ($conn->query($sql2));
    //declare array to store the data of database
@@ -62,6 +60,7 @@
 
 </head>
 
+
 <body>
     <?php include 'header.php'; ?> 
     <!-- [ Main Content ] start -->
@@ -78,104 +77,34 @@
                                         <div class="card-body">
                                             <h5>Lista serviço tecnico</h5>
                                             <hr>
-                                            <!-- [ Hover-table ] start -->
-                                            <div class="col-xl-12">
-                                                <div class="card">
-                                                    <div class="card-block table-border-style">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Cliente</th>
-
-                                                                        <th>Duração</th>
-                                                                        <th>Descrição</th>
-                                                                        
-                                                                        <th>Estado</th>
-                                                                        <th>Data inicio</th>
-
-                                                                        <th>Data fim</th>
-                                                                        <th>Aprovação</th>
-
-                                                                        <th>Etapas</th>
-                                                                        <th>Tipo</th>
-
-                                                                        <th>Tecnico Responsavel</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                        if(!empty($row))
-                                                                        foreach($row as $rows)
-                                                                        { 
-                                                                    ?>                                                                   
-                                                                    <tr>
-                                                                        <td> <?php echo $rows['cliente_nome']; ?> </td>
-
-                                                                        <td> <?php echo $rows['servico_estDuracao']; ?> </td>
-                                                                        <td> <?php echo $rows['servico_descricaoGeral']; ?> </td>
-
-                                                                        <td> <?php echo $rows['servico_estado']; ?> </td>
-                                                                        <td> <?php echo $rows['servico_dataInicio']; ?> </td>
-
-                                                                        <td> <?php echo $rows['servico_dataFim']; ?> </td>
-                                                                        <td> <?php echo $rows['servico_aprovacao']; ?> </td>
-
-                                                                        <td> <?php echo $rows['servico_numeroEtapas']; ?> </td>
-                                                                        <td> <?php echo $rows['servico_Tipo']; ?> </td>
-
-                                                                        <td> <?php echo $rows['tec_nome']; ?> </td>
-                                                                    </tr>
-                                                                    <?php } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- [ Hover-table ] end -->
+                                            <select name="servico" onchange="showParameter(this.value,'txtHint','getServico.php?q=')" class="form-control">
+                                                    <option value=""> </option>
+                                                <?php
+                                                if(!empty($row))
+                                                foreach($row as $rows)
+                                                { 
+                                                ?>                                                                   
+                                                    <option value="<?php echo $rows['cliente_nome']; ?>" ><?php echo $rows['cliente_nome']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <hr>
+                                            <div id="txtHint"></div>
                                         </div>
                                         <div class="card-body">
                                             <h5>Locais de execução</h5>
                                             <hr>
-                                            <!-- [ Hover-table ] start -->
-                                            <div class="col-xl-12">
-                                                <div class="card">
-                                                    <div class="card-block table-border-style">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Serviço & cliente</th>
-                                                                        <th>Pais</th>
-                                                                        <th>Provincia</th>
-
-                                                                        <th>Endereco</th>
-                                                                        <th>Estrutura</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                        if(!empty($row2))
-                                                                        foreach($row2 as $rows)
-                                                                        { 
-                                                                    ?>                                                                   
-                                                                    <tr>
-                                                                        <td> <?php echo $rows['cliente_nome']." - ".$rows['servico_descricaoGeral']; ?> </td>
-                                                                        <td> <?php echo $rows['loc_pais']; ?> </td>
-                                                                        <td> <?php echo $rows['loc_provincia']; ?> </td>
-
-                                                                        <td> <?php echo $rows['loc_endereco']; ?> </td>
-                                                                        <td> <?php echo $rows['loc_tipoEstrutura']; ?> </td>
-                                                                    </tr>
-                                                                    <?php } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- [ Hover-table ] end -->
+                                            <select name="local" onchange="showParameter(this.value,'txtHint2','getLocal.php?q=')" class="form-control">
+                                                    <option value=""> </option>
+                                                <?php
+                                                if(!empty($row2))
+                                                foreach($row2 as $rows)
+                                                { 
+                                                ?>                                                                   
+                                                    <option value="<?php echo $rows['cliente_nome']; ?>" ><?php echo $rows['cliente_nome']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <hr>
+                                            <div id="txtHint2"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,57 +118,10 @@
     </div>
     <!-- [ Main Content ] end -->
 
-    <!-- Warning Section Starts -->
-    <!-- Older IE warning message -->
-    <!--[if lt IE 11]>
-        <div class="ie-warning">
-            <h1>Warning!!</h1>
-            <p>You are using an outdated version of Internet Explorer, please upgrade
-               <br/>to any of the following web browsers to access this website.
-            </p>
-            <div class="iew-container">
-                <ul class="iew-download">
-                    <li>
-                        <a href="http://www.google.com/chrome/">
-                            <img src="assets/images/browser/chrome.png" alt="Chrome">
-                            <div>Chrome</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.mozilla.org/en-US/firefox/new/">
-                            <img src="assets/images/browser/firefox.png" alt="Firefox">
-                            <div>Firefox</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.opera.com">
-                            <img src="assets/images/browser/opera.png" alt="Opera">
-                            <div>Opera</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.apple.com/safari/">
-                            <img src="assets/images/browser/safari.png" alt="Safari">
-                            <div>Safari</div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                            <img src="assets/images/browser/ie.png" alt="">
-                            <div>IE (11 & above)</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <p>Sorry for the inconvenience!</p>
-        </div>
-    <![endif]-->
-    <!-- Warning Section Ends -->
-
     <!-- Required Js -->
-<script src="assets/js/vendor-all.min.js"></script>
+    <script src="assets/js/vendor-all.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.js"></script>
-
+    <script src="assets/js/AJAX.js"></script>
 </body>
 </html>

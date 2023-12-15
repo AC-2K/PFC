@@ -1,6 +1,6 @@
 <?php
    include 'DB.php';
-   $sql3 = "select * from historicoservico
+   $sql3 = "select servico_id, cliente_nome, servico_descricaoGeral from historicoservico
    inner join servicotecnico On servico_id = id_servico
    inner join cliente On cliente_id = id_cliente ORDER by cliente_nome";
   
@@ -63,39 +63,18 @@
                                         <div class="card-body">
                                             <h5>Historico</h5>
                                             <hr>
-                                            <!-- [ Hover-table ] start -->
-                                            <div class="col-xl-12">
-                                                <div class="card">
-                                                    <div class="card-block table-border-style">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Cliente</th>
-                                                                        <th>Data de inserção</th>
-                                                                        <th>Descrição</th>
-                                                                        
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                        if(!empty($row3))
-                                                                        foreach($row3 as $rows)
-                                                                        { 
-                                                                    ?>                                                                   
-                                                                    <tr>
-                                                                        <td> <?php echo $rows['cliente_nome']; ?> </td>
-                                                                        <td> <?php echo $rows['his_dataInsercao']; ?> </td>
-                                                                        <td> <?php echo $rows['servico_descricaoGeral']; ?> </td>
-                                                                    </tr>
-                                                                    <?php } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- [ Hover-table ] end -->
+                                            <select name="historico" onchange="showParameter(this.value,'txtHint','getHistorico.php?q=')" class="form-control">
+                                                    <option value=""> </option>
+                                                <?php
+                                                if(!empty($row3))
+                                                foreach($row3 as $rows)
+                                                { 
+                                                ?>                                                                   
+                                                    <option value="<?php echo $rows['cliente_nome']; ?>" ><?php echo $rows['cliente_nome']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <hr>
+                                            <div id="txtHint"></div>
                                         </div>
                                         <div class="card-body">
                                             <h5>Gestão de Historico</h5>
@@ -221,6 +200,6 @@
 <script src="assets/js/vendor-all.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.js"></script>
-
+    <script src="assets/js/AJAX.js"></script>
 </body>
 </html>
