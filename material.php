@@ -41,7 +41,7 @@
        $row3 = $result3->fetch_all(MYSQLI_ASSOC);  
    }
 
-   $sql4 = "select servico_id from servicotecnico";
+   $sql4 = "select * from servicotecnico inner join cliente On cliente_id = id_cliente";
    $result4 = ($conn->query($sql4));
    //declare array to store the data of database
    $row4 = []; 
@@ -51,7 +51,6 @@
        // fetch all data from db into array 
        $row4 = $result4->fetch_all(MYSQLI_ASSOC);  
    }
-
 ?>
 
 <!DOCTYPE html>
@@ -87,111 +86,7 @@
 </head>
 
 <body>
-    <!-- [ Pre-loader ] start -->
-    <div class="loader-bg">
-        <div class="loader-track">
-            <div class="loader-fill"></div>
-        </div>
-    </div>
-    <!-- [ Pre-loader ] End -->
-
-    <!-- [ navigation menu ] start -->
-    <nav class="pcoded-navbar">
-        <div class="navbar-wrapper">
-            <div class="navbar-brand header-logo">
-                    <i> <img src="assets/images/logo.png" alt="" width="70%"> </i>
-                <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
-            </div>
-            <div class="navbar-content scroll-div">
-                <ul class="nav pcoded-inner-navbar">
-                    <li class="nav-item pcoded-menu-caption">
-                        <label>Geral</label>
-                    </li>
-                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
-                        <a href="mainPage.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Inicio</span></a>
-                    </li>
-                    <li class="nav-item pcoded-menu-caption">
-                        <label>Entidades</label>
-                    </li>
-                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Serviços técnicos</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class=""><a href="paginaServico.php" class="">Operações</a></li>
-                            <li class=""><a href="listaServico.php" class="">Lista</a></li>
-                            <?php if($_SESSION["usuario"] == 1 || $_SESSION["usuario"] == 2){
-                                echo ' <li><a href="material.php">Material</a></li>';
-                                echo ' <li><a href="historico.php">Historico</a></li>';
-                            }
-                            ?>
-                        </ul>
-                    </li>
-                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Relatórios técnicos</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class=""><a href="paginaRelatorio.php" class="">Operações</a></li>
-                            <li class=""><a href="listaRelatorio.php" class="">Lista</a></li>
-                        </ul>
-                    </li>
-                    <?php 
-                    if($_SESSION["usuario"] == 1 || $_SESSION["usuario"] == 2 ){
-                    echo ' <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">';           
-                        echo '<a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Clientes</span></a>';
-                        echo '<ul class="pcoded-submenu">';
-                            echo '<li class=""><a href="paginaCliente.php" class="">Operações</a></li>';
-                            echo '<li class=""><a href="listaCliente.php" class="">Lista</a></li>';
-                            echo '<li class=""><a href="estatistica.php" class="">Estatisticas</a></li>';
-                        echo '</ul>';     
-                    echo '</li>'; 
-                    }
-                    ?>
-                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">Levantamentos</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class=""><a href="paginaLevantamento.php" class="">Operações</a></li>
-                            <li class=""><a href="listaLevantamento.php" class="">Lista</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item pcoded-menu-caption">
-                        <label>Opções</label>
-                    </li>
-                    <?php 
-                    if($_SESSION["usuario"] == 2 ){
-                    echo ' <li data-username="form elements advance componant validation masking wizard picker select" class="nav-item">';           
-                        echo '<a href="admin.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Privilegios</span></a>';
-                    echo '</li>';
-                    }
-                    ?>
-                    <li data-username="Table bootstrap datatable footable" class="nav-item">
-                        <a href="sair.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Sign out</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- [ navigation menu ] end -->
-
-    <!-- [ Header ] start -->
-    <header class="navbar pcoded-header navbar-expand-lg navbar-light">
-        <div class="m-header">
-            <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
-            <a href="index.html" class="b-brand">
-                   <div class="b-bg">
-                       <i class="feather icon-trending-up"></i>
-                   </div>
-                   <span class="b-title">Datta Able</span>
-               </a>
-        </div>
-        <a class="mobile-menu" id="mobile-header" href="javascript:">
-            <i class="feather icon-more-horizontal"></i>
-        </a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav mr-auto">
-                <li><a href="javascript:" class="full-screen" onclick="javascript:toggleFullScreen()"><i class="feather icon-maximize"></i></a></li>
-            </ul>
-        </div>
-    </header>
-    <!-- [ Header ] end -->
-
+    <?php include 'header.php'; ?> 
     <!-- [ Main Content ] start -->
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
@@ -214,7 +109,6 @@
                                                             <table class="table table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Serviço</th>
                                                                         <th>Descrição</th>
 
                                                                         <th>Cliente </th>
@@ -228,8 +122,6 @@
                                                                         <th>Modelo</th>
                                                                         <th>Quantidade</th>
 
-                                                                        <th>ID</th>
-
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -239,7 +131,6 @@
                                                                         { 
                                                                     ?>                                                                   
                                                                     <tr>
-                                                                        <td> <?php echo $rows['servico_id']; ?> </td>
                                                                         <td> <?php echo $rows['servico_descricaoGeral']; ?> </td>
 
                                                                         <td> <?php echo $rows['cliente_nome']; ?> </td>
@@ -251,8 +142,6 @@
                                                                         <td> <?php echo $rows['eqm_fabricante']; ?> </td>
                                                                         <td> <?php echo $rows['eqm_modelo']; ?> </td>
                                                                         <td> <?php echo $rows['list_quantidade']; ?> </td>
-
-                                                                        <td> <?php echo $rows['list_id']; ?> </td>
                                                                     </tr>
                                                                     <?php } ?>
                                                                 </tbody>
@@ -303,7 +192,7 @@
                                                 </div>
                                             </div>
                                             <!-- ------------------------------------------------------------------------ -->
-                                            <!-- Modal 2  - Actualizar Material -->
+                                            <!-- Modal 2  - Actualizar Equipamento -->
                                             <div class="modal fade" id="myModalActEquipamento" role="dialog">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->
@@ -380,7 +269,8 @@
                                             <hr>
                                             <button type="submit" class="btn btn-success" id="materialCreate" >Criar</button> 
                                             <button type="submit" class="btn btn-primary" id="materialACT" >Actualizar</button>
-                                            <button type="submit" class="btn btn-danger" id="materialDel" >Apagar</button>
+                                            <button type="submit" class="btn btn-danger" id="materialDel" >Apagar toda lista</button>
+                                            <button type="submit" class="btn btn-danger" id="materialDelOne" >Apagar 1 elemento</button>
                                             <hr>
 
                                             <!-- Modal 1  - Criar Material -->
@@ -413,7 +303,8 @@
                                                                             foreach($row4 as $rows)
                                                                             { 
                                                                         ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
+                                                                            <option><?php echo $rows['servico_id']." - ".$rows['cliente_nome']."- ".$rows['servico_descricaoGeral']; ?></option>
+
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
@@ -435,7 +326,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="quantidade">Quantidade</label>
-                                                                    <input type="number" class="form-control"  name="quantidade" id="quantidade" aria-describedby="quantidade" placeholder="quantidade">
+                                                                    <input type="number" class="form-control"  name="quantidade" id="quantidade" aria-describedby="quantidade" min="1" placeholder="quantidade">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -458,26 +349,14 @@
                                                         <form action="metodoUpdate.php" method="POST" enctype="multipart/form-data" >
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="selectLista">ID</label> 
+                                                                    <label for="selectLista">Lista alocado</label> 
                                                                     <select class="form-control" name="selectLista" id="selectLista">
                                                                         <?php
                                                                             if(!empty($row2))
                                                                             foreach($row2 as $rows)
                                                                             { 
                                                                         ?>                                                                   
-                                                                            <option><?php echo $rows['list_id']; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="selectServico">Serviço técnico disponivel</label> 
-                                                                    <select class="form-control" name="selectServico" id="selectServico">
-                                                                        <?php
-                                                                            if(!empty($row4))
-                                                                            foreach($row4 as $rows)
-                                                                            { 
-                                                                        ?>                                                                   
-                                                                            <option><?php echo $rows['servico_id']; ?></option>
+                                                                            <option><?php echo $rows['list_id']." - ".$rows['cliente_nome']."- ".$rows['servico_descricaoGeral']; ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
@@ -485,8 +364,8 @@
                                                                     <label for="selectEquipamento">Equipamento</label> 
                                                                     <select class="form-control" name="selectEquipamento" id="selectEquipamento">
                                                                         <?php
-                                                                            if(!empty($row3))
-                                                                            foreach($row3 as $rows)
+                                                                            if(!empty($row2))
+                                                                            foreach($row2 as $rows)
                                                                             { 
                                                                         ?>                                                                   
                                                                             <option><?php echo $rows['eqm_modelo']; ?></option>
@@ -523,7 +402,7 @@
                                                 </div>
                                             </div>
                                             <!-- ------------------------------------------------------------------------ -->
-                                            <!-- Modal 3  - Apagar Material -->
+                                            <!-- Modal 3  - Apagar Material - toda lista-->
                                             <div class="modal fade" id="myModalDeleteMaterial" role="dialog">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->
@@ -534,14 +413,14 @@
                                                         <form action="metodoDelete.php" method="POST" enctype="multipart/form-data" >
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="selectLista">ID</label> 
+                                                                    <label for="selectLista">Lista de material</label> 
                                                                     <select class="form-control" name="selectLista" id="selectLista">
                                                                         <?php
                                                                             if(!empty($row2))
                                                                             foreach($row2 as $rows)
                                                                             { 
                                                                         ?>                                                                   
-                                                                            <option><?php echo $rows['list_id']; ?></option>
+                                                                            <option><?php echo $rows['id_servico']." - ".$rows['cliente_nome']." - ".$rows['servico_descricaoGeral']; ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
@@ -549,6 +428,38 @@
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-danger" data-dismiss="modal">Negar</button>
                                                                 <button class="btn btn-primary" name="submeter" value="lista" id="apagarMaterial">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------------------------------------------------ -->
+                                            <!-- Modal 3  - Apagar Material - 1 item -->
+                                            <div class="modal fade" id="myModalDeleteMaterialOne" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="metodoDelete.php" method="POST" enctype="multipart/form-data" >
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="selectLista">Lista de material</label> 
+                                                                    <select class="form-control" name="selectLista" id="selectLista">
+                                                                        <?php
+                                                                            if(!empty($row2))
+                                                                            foreach($row2 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['id_eqm']." - ".$rows['eqm_nome']." - ".$rows['cliente_nome']." - ".$rows['servico_descricaoGeral']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="listaOne" id="apagarMaterialOne">continuar</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -570,6 +481,11 @@
                                                 $('#materialDel').on('click',function(e){
                                                     e.preventDefault();
                                                     $('#myModalDeleteMaterial').modal('toggle');
+
+                                                });
+                                                $('#materialDelOne').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalDeleteMaterialOne').modal('toggle');
 
                                                 });
 
@@ -596,9 +512,14 @@
                                                 $('#actualizarMaterial').on('click',function(){
                                                                 $('form').submit();
                                                 });
-                                                $('#apagarRMaterial').on('click',function(){
+                                                $('#apagarMaterial').on('click',function(){
                                                                 $('form').submit();
                                                 });
+                                                $('#apagarMaterialOne').on('click',function(){
+                                                                $('form').submit();
+                                                });
+
+
 
                                                 $('#criarEquipamento').on('click',function(){
                                                                 $('form').submit();

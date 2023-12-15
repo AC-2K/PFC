@@ -36,7 +36,7 @@
     //servico tecnico
     if($value == 'servico'){
         try {
-            $servico = preg_replace('/\D/', '', $_POST['servico']);
+            $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['servico']);
             $duracao = $_POST['duracao'];
             $descricao = $_POST['descricao'];
             $estado = $_POST['selectEstado'];
@@ -48,8 +48,6 @@
             $cliente = $_POST['cliente'];
             $tipo = $_POST['selectTipo'];
 
-            if($aprovacao == 'Sim'){$aprovacao = 1;}
-            if($aprovacao == 'Nao'){$aprovacao = 0;}
             
             $sql = "select tec_id from tecnico WHERE tec_nome = '$tecnico' ";
             $result = ($conn->query($sql));
@@ -138,7 +136,6 @@
             $lista = $_POST['selectLista'];
 
             $equipamento = $_POST['selectEquipamento'];
-            $servico = $_POST['selectServico'];
             $sistema = $_POST['sistema'];
             $loja = $_POST['loja'];
             $quantidade = $_POST['quantidade'];
@@ -149,11 +146,6 @@
                 $var1 = $row["eqm_id"];
             }
 
-            $sql2 = "select servico_id from servicotecnico WHERE servico_id = '$servico' ";
-            $result2 = ($conn->query($sql2));
-            while($row2 = mysqli_fetch_assoc($result2)) {
-                $var2 = $row2["servico_id"];
-            }
 
             $sql3 = "select sis_id from sistemaseguranca WHERE sis_designacao = '$sistema' ";
             $result3 = ($conn->query($sql3));
@@ -164,7 +156,6 @@
             
             if(isset($equipamento) && !empty($equipamento) ){updateField($conn,"listamaterial","id_eqm",$var1,"list_id",$lista,"material.php");}
 
-            if(isset($servico) && !empty($servico) ){updateField($conn,"listamaterial","id_servico",$var2,"list_id",$lista,"material.php");}
             if(isset($sistema) && !empty($sistema) ){updateField($conn,"listamaterial","id_sis",$var3,"list_id",$lista,"material.php");}
 
             if(isset($loja) && !empty($loja) ){updateField($conn,"listamaterial","list_loja",$loja,"list_id",$lista,"material.php");}
@@ -223,7 +214,7 @@
     //Relatorio
     if($value == 'relatorio'){
         try {
-            $relatorio = preg_replace('/\D/', '', $_POST['selectRelatorio']);
+            $relatorio = preg_replace('/(\d+)\s.*/', '$1', $_POST['selectRelatorio']);
 
             $data = $_POST['data'];
             $descricao = $_POST['descricao'];
@@ -254,7 +245,7 @@
     //Levantamento
     if($value == 'levantamento'){
         try {
-            $levantamento = preg_replace('/\D/', '', $_POST['selectLevantamento']);
+            $levantamento = preg_replace('/(\d+)\s.*/', '$1', $_POST['selectLevantamento']);
 
             $data = $_POST['data'];
             $descricao = $_POST['descricao'];

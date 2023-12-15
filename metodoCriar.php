@@ -32,7 +32,7 @@
             }
             
             $stmt = $conn->prepare(" INSERT INTO servicotecnico (servico_estDuracao ,servico_descricaoGeral ,servico_estado ,servico_dataInicio ,servico_dataFim ,servico_aprovacao ,servico_numeroEtapas ,servico_Tipo ,id_tec ,id_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
-            $stmt->bind_param("issssiisii", $duracao, $descricao, $estado, $dataInicio, $dataFim, $aprovacao, $numeroEtapas, $tipo, $var1, $var2);
+            $stmt->bind_param("isssssisii", $duracao, $descricao, $estado, $dataInicio, $dataFim, $aprovacao, $numeroEtapas, $tipo, $var1, $var2);
                                  
             if ($stmt->execute() ) {
                 $stmt->close();
@@ -56,7 +56,7 @@
     //Local de execucao
     if($value == 'local'){
         try {
-            $servico =  preg_replace('/\D/', '', $_POST['servico']);
+            $servico =  preg_replace('/(\d+)\s.*/', '$1', $_POST['servico']);
             $pais = $_POST['pais'];
             $provincia = $_POST['provincia'];
             $endereco = $_POST['endereco'];
@@ -120,7 +120,7 @@
     if($value == 'lista'){
         try {
             $equipamento = $_POST['selectEquipamento'];
-            $servico = $_POST['selectServico'];
+            $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['selectServico']);
             $sistema = $_POST['sistema'];
             $loja = $_POST['loja'];
             $quantidade = $_POST['quantidade'];
@@ -205,8 +205,18 @@
     if($value == 'telefone'){
         try {
             $telefone = $_POST['telefone'];
+            $firstThreeChars = substr($telefone, 0, 3);
+            $firstChar = substr($telefone, 0, 1);
+
             $selectCliente = $_POST['selectCliente'];
             
+            //Tratamento de caracteres
+            if($firstThreeChars != "+258" && $firstChar != "+"){
+                $telefone = "+258".$_POST['telefone'];
+            }
+            if( $firstChar == "+"){
+                $telefone = "+258".substr($telefone, 2);
+            }
              
             $sql3 = "select cliente_id from cliente WHERE cliente_nome = '$selectCliente' ";
             $result3 = ($conn->query($sql3));
@@ -238,7 +248,7 @@
     //Relatorio
     if($value == 'relatorio'){
         try {
-            $selectServico = $_POST['selectServico'];
+            $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['selectServico']);
             $data = $_POST['data'];
             $descricao = $_POST['descricao'];
             $etapa = $_POST['etapa'];
@@ -280,7 +290,7 @@
     //Levantamento
     if($value == 'levantamento'){
         try {
-            $selectTipo = $_POST['selectTipo'];
+            $selectTipo = preg_replace('/(\d+)\s.*/', '$1', $_POST['selectTipo']);
             $data = $_POST['data'];
             $descricao = $_POST['descricao'];
             $anexo = $_POST['anexo'];
@@ -405,7 +415,7 @@
     //estatistica
     if($value == 'estatistica'){
         try {
-            $servico = $_POST['servico'];
+            $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['servico']);
             $satisfacao = $_POST['satisfacao'];
             $pontuacao = $_POST['pontuacao'];
             $comentario = $_POST['comentario'];
