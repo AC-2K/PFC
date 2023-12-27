@@ -24,6 +24,7 @@ echo "
                 <table class='table table-hover'>
                     <thead>
                         <tr>
+                            <th>Serviço Técnico</th>
                             <th>Pais</th>
                             <th>Provincia</th>
                             
@@ -36,6 +37,7 @@ echo "
                         foreach($row as $rows)
                         {
                         echo "<tr>";
+                            echo "<td>" . $rows['servico_descricaoGeral'] . "</td>";
 
                             echo "<td>" . $rows['loc_pais'] . "</td>";
                             echo "<td>" . $rows['loc_provincia'] . "</td>";
