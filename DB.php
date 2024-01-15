@@ -8,7 +8,7 @@
    if (!isset($_SESSION["usuario"])) {
       echo '<script type="text/javascript">';
       echo 'alert("Pagina indisponivel, nao acedeu");';;
-      echo 'window.location.href = "index.html";';
+      echo 'window.location.href = "index.php";';
       echo '</script>';
   }
 
