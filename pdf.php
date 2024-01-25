@@ -248,23 +248,19 @@ if ($value =='relatorio') {
         $html = $header.
          '
          <img src="assets/images/pdf-header.jpg" width ="1000" >
-         <div class="card-block table-border-style">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th> Cliente: '.$rows['cliente_nome'].'</th>
-                        </tr>
-                        <tr>
-                            <th> Email: '.$rows['cliente_email'].'</th>
-                        </tr>
-                        <tr>
-                            <th> Categoria: '.$rows['cliente_tipo'].'</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-         </div>
+            <table class="header">
+                <thead>
+                    <tr>
+                        <th> Cliente: '.$rows['cliente_nome'].'</th>
+                    </tr>
+                    <tr>
+                        <th> Email: '.$rows['cliente_email'].'</th>
+                    </tr>
+                    <tr>
+                        <th> Categoria: '.$rows['cliente_tipo'].'</th>
+                    </tr>
+                </thead>
+            </table>
          <div class="table-responsive">
 
              <table class="demo">
