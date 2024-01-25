@@ -428,5 +428,10 @@ if ($value =='levantamento') {
 
 } 
 
+//TODO deixar as tabelas mais bonitos
+
+//TODO Implementar imagens no relatorio
 
 ?>
+
+
