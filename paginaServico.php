@@ -44,6 +44,17 @@
         // fetch all data from db into array 
         $row4 = $result4->fetch_all(MYSQLI_ASSOC);  
     }
+
+    $sql5 = "select * from sistemaseguranca";
+    $result5 = ($conn->query($sql5));
+    //declare array to store the data of database
+    $row5 = []; 
+    
+    if ($result5->num_rows > 0) 
+    {
+        // fetch all data from db into array 
+        $row5 = $result5->fetch_all(MYSQLI_ASSOC);  
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,8 +106,13 @@
                                             <button type="submit" class="btn btn-success" id="servicoCreate" >Criar</button>
                                             <button type="submit" class="btn btn-primary" id="servicoACT" >Actualizar</button>
                                             <button type="submit" class="btn btn-danger" id="servicoDel" >Apagar</button>
+                                            <button type="submit" class="btn btn-primary" id="servicoPDF" >Imprimir PDF</button>
                                             <hr>
-                                            <h5>Local de execução</h5>
+                                            <h5>Gestão de Serviços - Alocação de sistemas de segurança</h5>
+                                            <button type="submit" class="btn btn-success" id="servicoSistemaCreate" >Adicionar</button>
+                                            <button type="submit" class="btn btn-primary" id="servicoSistemaDel" >Remover</button>
+                                            <hr>
+                                            <h5>Local de execução</h5> 
                                             <button type="submit" class="btn btn-success" id="localCreate" >Anexar</button>
                                             <button type="submit" class="btn btn-danger" id="localDEL">Apagar</button>
                                             <hr>
@@ -326,8 +342,114 @@
                                                 </div>
                                             </div>
                                             <!-- ------------------------------------------------------------------------ -->
-
-
+                                            <!-- Modal 3.1  - PDF Servico -->
+                                            <div class="modal fade" id="myModalPDFServico" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="pdf.php" method="POST">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="servico">Servico tecnico</label>
+                                                                    <select class="form-control" name="servico" id="servico">
+                                                                        <?php
+                                                                            if(!empty($row4))
+                                                                            foreach($row4 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['servico_id']." - ".$rows['cliente_nome']."- ".$rows['servico_descricaoGeral']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>     
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="servico" id="pdfServico">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------------------------------------------------ -->
+                                            <!-- Modal 3.2  - Adicionar sistema de Servico -->
+                                            <div class="modal fade" id="myModalSistemaServicoCriar" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="metodoCriar.php" method="POST">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="servico">Servico tecnico</label>
+                                                                    <select class="form-control" name="servico" id="servico">
+                                                                        <?php
+                                                                            if(!empty($row4))
+                                                                            foreach($row4 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['servico_id']." - ".$rows['cliente_nome']."- ".$rows['servico_descricaoGeral']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="sistema">Sistema de segurança</label>
+                                                                    <select class="form-control" name="sistema" id="sistema">
+                                                                        <?php
+                                                                            if(!empty($row5))
+                                                                            foreach($row5 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['sis_id']." - ".$rows['sis_designacao']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>  
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="sistemaServico" id="criarSistema">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------------------------------------------------ -->
+                                            <!-- Modal 3.3  - remover sistema de Servico -->
+                                            <div class="modal fade" id="myModalSistemaServicoDEL" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="metodoDelete.php" method="POST">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="servico">Servico tecnico</label>
+                                                                    <select class="form-control" name="servico" id="servico">
+                                                                        <?php
+                                                                            if(!empty($row4))
+                                                                            foreach($row4 as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['servico_id']." - ".$rows['cliente_nome']."- ".$rows['servico_descricaoGeral']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>     
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="sistemaServico" id="delSistema">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------------------------------------------------ -->
 
                                             <!-- Modal 4  - Criar local -->
                                             <div class="modal fade" id="myModalCreateLocal" role="dialog">
@@ -434,6 +556,19 @@
                                                     $('#myModalDeleteServico').modal('toggle');
 
                                                 });
+                                                $('#servicoPDF').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalPDFServico').modal('toggle');
+                                                });
+                                                $('#servicoSistemaDel').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalSistemaServicoDEL').modal('toggle');
+                                                });
+                                                $('#servicoSistemaCreate').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalSistemaServicoCriar').modal('toggle');
+
+                                                });
                                                 $('#localCreate').on('click',function(e){
                                                     e.preventDefault();
                                                     $('#myModalCreateLocal').modal('toggle'); 
@@ -444,7 +579,7 @@
                                                     $('#myModalDeleteLocal').modal('toggle');
 
                                                 });
-                                            //------------------------------------------------------------------------
+                                            //------------------------------------------------------------------------ 
                                                 $('#criarServico').on('click',function(){
                                                                 $('form').submit();
                                                 });
@@ -455,6 +590,18 @@
                                                 $('#apagarServico').on('click',function(){
                                                                 $('form').submit();
                                                 });
+
+                                                $('#pdfServico').on('click',function(){
+                                                                $('form').submit();
+                                                });
+
+                                                $('#criarSistema').on('click',function(){
+                                                                $('form').submit();
+                                                });
+                                                $('#delSistema').on('click',function(){
+                                                                $('form').submit();
+                                                });
+
                                                 $('#criarLocal').on('click',function(){
                                                                 $('form').submit();
                                                 });

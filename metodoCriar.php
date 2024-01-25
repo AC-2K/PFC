@@ -254,7 +254,7 @@
             $etapa = $_POST['etapa'];
             $anexo = $_POST['anexo'];
             
-            $sql = "select servico_id, servico_numeroEtapas from servicotecnico WHERE servico_id = '$selectServico' ";
+            $sql = "select servico_id, servico_numeroEtapas from servicotecnico WHERE servico_id = '$servico' ";
             $result = ($conn->query($sql));
             while($row = mysqli_fetch_assoc($result)) {
                 $var1 = $row["servico_id"];
@@ -442,4 +442,33 @@
         }
             
     }
+
+        //sistema
+        if($value == 'sistemaServico'){
+            try {
+                $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['servico']);
+                $sistema = preg_replace('/(\d+)\s.*/', '$1', $_POST['sistema']);
+                    
+                $stmt = $conn->prepare(" INSERT INTO listasistema (id_servico, id_sis) VALUES (?,?) ");
+                $stmt->bind_param("ii", $servico, $sistema);
+    
+                if ($stmt->execute() ) {
+                    $stmt->close();
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Sistema seguranca  inseridos");';
+                    echo 'window.location.href = "paginaServico.php";';
+                    echo '</script>';
+                }else{
+                    throw new Exception("Erro - Inseriu dados invalidos");
+                } 
+                              
+            }catch (\Throwable $th) {
+                $msg =  " " . $th->getMessage();
+                echo '<script type="text/javascript">';
+                echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "paginaServico.php";';
+                echo '</script>';
+            }
+                
+        }
 ?>

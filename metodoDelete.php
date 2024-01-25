@@ -359,5 +359,31 @@
         }
             
     }
+        //sistema
+        if($value == 'sistemaServico'){
+            try {
+                $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['servico']);
+                          
+                $stmt = $conn->prepare(" DELETE FROM listasistema WHERE id_servico = ? ");
+                $stmt->bind_param("i", $servico);
+                                     
+                if ($stmt->execute()) {
+                    $stmt->close();
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Lista de sistemas totalmente apagado");';
+                    echo 'window.location.href = "paginaServico.php";';
+                    echo '</script>';
+                }else{
+                    throw new Exception("Erro - Inseriu dados invalidos");
+                }           
+            }catch (\Throwable $th) {
+                $msg =  " " . $th->getMessage();
+                echo '<script type="text/javascript">';
+                echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "paginaServico.php";';
+                echo '</script>';
+            }
+            
+        }
 
 ?>

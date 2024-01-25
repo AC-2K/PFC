@@ -77,6 +77,8 @@
                                             <button type="submit" class="btn btn-primary" id="levantamentoACT" >Actualizar</button>
                                             <button type="submit" class="btn btn-danger" id="levantamentoDel" >Apagar</button>
                                             <hr>
+                                            <button type="submit" class="btn btn-primary" id="levantamentoPDF" >Imprimir PDF</button>
+                                            <hr>
 
                                             <!-- Modal 1  - Criar Levantamento -->
                                             <div class="modal fade" id="myModalCreateLevantamento" role="dialog">
@@ -197,7 +199,37 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <!-- Modal 4  - PDF Levantamento -->
+                                            <div class="modal fade" id="myModalDPDFLevantamento" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="pdf.php" method="POST" enctype="multipart/form-data" >
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="selectLevantamento">Levantamento em causa</label>
+                                                                    <select class="form-control" name="selectLevantamento" id="selectLevantamento" required>
+                                                                        <?php
+                                                                            if(!empty($row))
+                                                                            foreach($row as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['lev_id']." - ".$rows['cliente_nome']." - ".$rows['servico_descricaoGeral']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="levantamento" id="pdfLevantamento">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <script> 
                                             $('document').ready(function(){
@@ -216,6 +248,11 @@
                                                     $('#myModalDeleteLevantamento').modal('toggle');
 
                                                 });
+                                                $('#levantamentoPDF').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalDPDFLevantamento').modal('toggle');
+
+                                                });
                                             //------------------------------------------------------------------------
                                                 $('#criarLevantamento').on('click',function(){
                                                                 $('form').submit();
@@ -225,6 +262,9 @@
                                                                 $('form').submit();
                                                 });
                                                 $('#apagarLevantamento').on('click',function(){
+                                                                $('form').submit();
+                                                });
+                                                $('#pdfLevantamento').on('click',function(){
                                                                 $('form').submit();
                                                 });
                                             });    

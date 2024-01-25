@@ -76,6 +76,8 @@
                                             <button type="submit" class="btn btn-primary" id="relatorioACT" >Actualizar</button>
                                             <button type="submit" class="btn btn-danger" id="relatorioDel" >Apagar</button>
                                             <hr>
+                                            <button type="submit" class="btn btn-primary" id="relatorioPDF" >Imprimir PDF</button>
+                                            <hr>
 
                                             <!-- Modal 1  - Criar Relatorio -->
                                             <div class="modal fade" id="myModalCreateRelatorio" role="dialog">
@@ -205,6 +207,56 @@
                                                 </div>
                                             </div>
                                             <!-- ------------------------------------------------------------------------ -->
+                                            <!-- Modal 4  - Obter PDF -->
+                                            <div class="modal fade" id="myModalPDFRelatorio" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <form action="pdf.php" method="POST" enctype="multipart/form-data" >
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="selectRelatorio">Relatorio técnico </label> 
+                                                                    <select class="form-control" name="selectRelatorio" id="selectRelatorio" required>
+                                                                        <?php
+                                                                            if(!empty($row))
+                                                                            foreach($row as $rows)
+                                                                            { 
+                                                                        ?>                                                                   
+                                                                            <option><?php echo $rows['rel_id']."-".$rows['cliente_nome']."-".$rows['rel_descricao']; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                    
+                                                                    <br>
+                                                                    <!-- Checkboxes de actividades -->
+                                                                    <label>Actividades de manutenção efectuado</label>
+                                                                    <hr>
+                                                                    <input  type="checkbox" name="opcao1" value="Limpeza de equipamento"> Limpeza de equipamento
+                                                                    <hr>
+                                                                    <input  type="checkbox" name="opcao2" value="Verificação fisica"> Verificação fisica
+                                                                    <hr>
+                                                                    <input  type="checkbox" name="opcao3" value="Verificação logica"> Verificação logica
+                                                                    <hr>
+                                                                    <input  type="checkbox" name="opcao4" value="Teste mecanico"> Teste mecanico
+                                                                    <hr>
+                                                                    <input  type="checkbox" name="opcao5" value="Troca de peças e/ou equipamento"> Troca de peças e/ou equipamento
+                                                                    <hr>
+                                                                    <input  type="checkbox" name="opcao6" value="Troca de peças"> Troca de peças
+                                                                    <hr>
+                                                                    <input  type="checkbox" name="opcao7" value="Lubrificação de peças"> Lubrificação de peças        
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" data-dismiss="modal">Negar</button>
+                                                                <button class="btn btn-primary" name="submeter" value="relatorio" id="pdfRelatorio">continuar</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- ------------------------------------------------------------------------ -->
                                         </div>
                                         <script> 
                                             $('document').ready(function(){
@@ -223,6 +275,11 @@
                                                     $('#myModalDeleteRelatorio').modal('toggle');
 
                                                 });
+                                                $('#relatorioPDF').on('click',function(e){
+                                                    e.preventDefault();
+                                                    $('#myModalPDFRelatorio').modal('toggle');
+
+                                                });
                                             //------------------------------------------------------------------------
                                                 $('#criarRelatorio').on('click',function(){
                                                                 $('form').submit();
@@ -232,6 +289,9 @@
                                                                 $('form').submit();
                                                 });
                                                 $('#apagarRelatorio').on('click',function(){
+                                                                $('form').submit();
+                                                });
+                                                $('#pdfRelatorio').on('click',function(){
                                                                 $('form').submit();
                                                 });
                                             });    
