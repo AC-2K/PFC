@@ -122,7 +122,7 @@
                     </tr>
                     <tr>
                         <th> Tipo: '.$rows['cliente_tipo'].'</th>
-                        <th> Responsavel: '.$rows['cliente_responsavel'].'</th>
+                        <th> Responsável: '.$rows['cliente_responsavel'].'</th>
                     </tr>
                     <tr>
                         <th> Estrutura: '.$rows['loc_tipoEstrutura'].'</th>
@@ -142,8 +142,8 @@
                             <td>Tipo de serviço</td>
                             <td>Aprovação</td>
                             <td>Data de inicio</td>
-                            <td>Data fim</td>
-                            <td>Numero de etapas</td>
+                            <td>Data de termínio</td>
+                            <td>Número de etapas</td>
                         </tr>
                         <tr>
                             <td>'.$rows['servico_Tipo'].'</td>
@@ -153,7 +153,7 @@
                             <td>'.$rows['servico_numeroEtapas'].'</td>
                         </tr>
                         <tr>
-                            <th colspan ="5" > Sistemas de seguranca coberto </th>
+                            <th colspan ="5" > Sistemas de segurança coberto </th>
                         </tr>
                             <tr>
                                 <td colspan = "5">'.$sistemas.'</td>
@@ -171,7 +171,7 @@
                                 <td colspan="5">'.$rows['servico_estado'].'</td>
                             </tr>
                         <tr>
-                            <th colspan ="5" > Tecnico responsavel </th>
+                            <th colspan ="5" > Técnico responsável </th>
                         </tr>
                             <tr>
                                 <td colspan="5">'.$rows['tec_nome'].'</td>
@@ -261,7 +261,7 @@ if ($value =='relatorio') {
                     </tr>
                     <tr>
                         <th> Tipo: '.$rows['cliente_tipo'].'</th>
-                        <th> Responsavel: '.$rows['cliente_responsavel'].'</th>
+                        <th> Responsável: '.$rows['cliente_responsavel'].'</th>
                     </tr>
                     <tr>
                         <th> Estrutura: '.$rows['loc_tipoEstrutura'].'</th>
@@ -394,7 +394,7 @@ if ($value =='levantamento') {
                 </tr>
                 <tr>
                     <th> Tipo: '.$rows['cliente_tipo'].'</th>
-                    <th> Responsavel: '.$rows['cliente_responsavel'].'</th>
+                    <th> Responsável: '.$rows['cliente_responsavel'].'</th>
                 </tr>
                 <tr>
                     <th> Estrutura: '.$rows['loc_tipoEstrutura'].'</th>
@@ -416,7 +416,7 @@ if ($value =='levantamento') {
                         <td>Data: '.$rows['lev_data'].'</td>
                     </tr>
                     <tr>
-                        <th colspan ="2" > Sistemas de seguranca coberto </th>
+                        <th colspan ="2" > Sistemas de segurança coberto </th>
                     </tr>
                         <tr>
                             <td colspan = "2">'.$sistemas.'</td>
