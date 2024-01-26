@@ -23,20 +23,25 @@
     $data = $result->fetch_all(MYSQLI_ASSOC);  
           
         if (mysqli_num_rows($result) == 1) {
+            
+
             foreach($data as $datas){ 
+                
                 $hashed_password = $datas['tec_pass'];
 
                 if(password_verify($pass, $hashed_password)) {
+                    
                     echo '<script type="text/javascript">';
                     echo 'alert("Bem vindo - Tecnico");';;
                     echo 'window.location.href = "mainPage.php";';
                     echo '</script>';
                 }
             }
-            goto gestor;          
+            $somaTecnico = 1;
+                    
         } else {
             //GOTO gestor
-            gestor:
+            
 
             $_SESSION["usuario"] = 1;
             $stmt = $link->prepare(" SELECT * from gestor where `ges_nome` = ?");
@@ -57,10 +62,11 @@
                         echo '</script>';
                     }
                 }
-                goto admin;    
+                $somaGestor = 1;
+                 
             }else {
                 //GOTO Admin 
-                admin:
+                
 
                 $_SESSION["usuario"] = 2;
                 $stmt = $link->prepare(" SELECT * from admin where `ad_user` = ?");
@@ -83,13 +89,11 @@
                             echo '</script>';
                         }
                     } 
+                    $somaAdmin = 1;
                 }
 
                 //Caso todos casos forem negados, serao rejeitados do programa
 
-                $somaGestor++;
-                $somaAdmin++;
-                $somaTecnico++; 
 
                 if ($somaAdmin > 0 && $somaGestor > 0 && $somaTecnico > 0 ) {
                     echo '<script type="text/javascript">';
