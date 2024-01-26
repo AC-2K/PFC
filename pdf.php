@@ -298,28 +298,33 @@ if ($value =='relatorio') {
                      <tr>
                          <th colspan ="3" > Actividades realizados </th>
                      </tr>
-
-                    <tr>
-                        <td colspan ="3">'.$opcao1.'</td>
-                    </tr>
-                    <tr>
-                        <td colspan ="3">'.$opcao2.'</td>
-                    </tr>
-                    <tr>
-                        <td colspan ="3">'.$opcao3.'</td>
-                    </tr>
-                    <tr>
-                        <td colspan ="3">'.$opcao4.'</td>
-                    </tr>
-                    <tr>
-                        <td colspan ="3">'.$opcao5.'</td>
-                    </tr>
-                    <tr>
-                        <td colspan ="3">'.$opcao6.'</td>
-                    </tr>
-                    <tr>
-                        <td colspan ="3">'.$opcao7.'</td>
-                    </tr>
+                        <tr>
+                            <td colspan ="3">'.$opcao1.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan ="3">'.$opcao2.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan ="3">'.$opcao3.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan ="3">'.$opcao4.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan ="3">'.$opcao5.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan ="3">'.$opcao6.'</td>
+                        </tr>
+                        <tr>
+                            <td colspan ="3">'.$opcao7.'</td>
+                        </tr>
+                        <tr>
+                            <th colspan ="3" > Recomendação </th>
+                        </tr>
+                            <tr>
+                                <td colspan ="3">'.$rows['rel_anexo'].'</td>
+                            </tr>
                  </tbody>
              </table>
          </div>
@@ -440,5 +445,10 @@ if ($value =='levantamento') {
 
 } 
 
+//TODO deixar as tabelas mais bonitos
+
+//TODO Implementar imagens no relatorio
 
 ?>
+
+

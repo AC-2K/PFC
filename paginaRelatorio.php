@@ -114,7 +114,7 @@
                                                                     <input type="number" class="form-control"  name="etapa" id="etapa" aria-describedby="etapa" placeholder="etapa">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="anexo">anexo</label>
+                                                                    <label for="anexo">Recomendação</label>
                                                                     <input type="text" class="form-control"  name="anexo" id="anexo" aria-describedby="anexo" placeholder="anexo">
                                                                 </div>
                                                             </div>
@@ -162,8 +162,8 @@
                                                                     <input type="number" class="form-control"  name="etapa" id="etapa" aria-describedby="etapa" placeholder="etapa">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="anexo">anexo</label>
-                                                                    <input type="file" class="form-control"  name="anexo" id="anexo" aria-describedby="anexo" placeholder="anexo">
+                                                                    <label for="anexo">Recomendação</label>
+                                                                    <input type="text" class="form-control"  name="anexo" id="anexo" aria-describedby="anexo" placeholder="anexo">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -228,7 +228,7 @@
                                                                             <option><?php echo $rows['rel_id']."-".$rows['cliente_nome']."-".$rows['rel_descricao']; ?></option>
                                                                         <?php } ?>
                                                                     </select>
-                                                                    
+
                                                                     <br>
                                                                     <!-- Checkboxes de actividades -->
                                                                     <label>Actividades de manutenção efectuado</label>
