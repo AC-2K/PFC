@@ -47,10 +47,9 @@
                 $msg =  " " . $th->getMessage();
                 echo '<script type="text/javascript">';
                 echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "paginaServico.php";';
                 echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
-        //TODO se o servico for mudado para terminado, sera feito a insercao no historico sistema automaticamente
         
     }
     //Local de execucao
@@ -78,8 +77,8 @@
                 $msg =  " " . $th->getMessage();
                 echo '<script type="text/javascript">';
                 echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "paginaServico.php";';
                 echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
         
     }
@@ -110,8 +109,8 @@
                 $msg =  " " . $th->getMessage();
                 echo '<script type="text/javascript">';
                 echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "material.php";';
                 echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
         
     }
@@ -162,12 +161,11 @@
                 $msg =  " " . $th->getMessage();
                 echo '<script type="text/javascript">';
                 echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "material.php";';
                 echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
         
     }
-
 
     //Clientes
     if($value == 'cliente'){
@@ -195,8 +193,8 @@
                 $msg =  " " . $th->getMessage();
                 echo '<script type="text/javascript">';
                 echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "paginaCliente.php";';
                 echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
         
     }  
@@ -240,8 +238,8 @@
                 $msg =  " " . $th->getMessage();
                 echo '<script type="text/javascript">';
                 echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "paginaCliente.php";';
                 echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
     }
 
@@ -281,8 +279,8 @@
                 $msg =  " " . $th->getMessage();
                 echo '<script type="text/javascript">';
                 echo 'alert("'.$msg.'");';
+                echo 'window.location.href = "paginaRelatorio.php";';
                 echo '</script>';
-                echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
         
     }
@@ -318,8 +316,8 @@
             $msg =  " " . $th->getMessage();
             echo '<script type="text/javascript">';
             echo 'alert("'.$msg.'");';
+            echo 'window.location.href = "paginaLevantamento.php";';
             echo '</script>';
-            echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
             
     }
@@ -363,8 +361,8 @@
             $msg =  " " . $th->getMessage();
             echo '<script type="text/javascript">';
             echo 'alert("'.$msg.'");';
+            echo 'window.location.href = "admin.php";';
             echo '</script>';
-            echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
             
     }
@@ -406,8 +404,8 @@
             $msg =  " " . $th->getMessage();
             echo '<script type="text/javascript">';
             echo 'alert("'.$msg.'");';
+            echo 'window.location.href = "admnin.php";';
             echo '</script>';
-            echo"<td width=14% align=center><input type=button value=Voltar onclick=myselect() /></td>";
         }
             
     }
