@@ -70,9 +70,10 @@
     try {
             //Busca de dados do servico tecnico selecionado
             $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['servico']); 
-            $stmt = $conn->prepare(" SELECT * from servicotecnico 
-            INNER JOIN tecnico ON tec_id = id_tec 
-            INNER JOIN cliente On cliente_id = id_cliente
+            $stmt = $conn->prepare(" SELECT * from servicotecnico st
+            INNER JOIN tecnico tc ON tc.tec_id = st.id_tec 
+            INNER JOIN cliente cl On cl.cliente_id = st.id_cliente
+            INNER JOIN localexecucao le On st.servico_id = le.id_servico
             where servico_id = ? ");
             
             $stmt->bind_param("s", $servico);
@@ -113,19 +114,22 @@
             $html = $header.
             '
             <img src="assets/images/pdf-header.jpg" width ="1000" >
-                <table class="header">
-                    <thead>
-                        <tr>
-                            <th> Cliente: '.$rows['cliente_nome'].'</th>
-                        </tr>
-                        <tr>
-                            <th> Email: '.$rows['cliente_email'].'</th>
-                        </tr>
-                        <tr>
-                            <th> Categoria: '.$rows['cliente_tipo'].'</th>
-                        </tr>
-                    </thead>
-                </table>
+            <table class="header">
+                <thead>
+                    <tr>
+                        <th> Cliente: '.$rows['cliente_nome'].'</th>
+                        <th> Email: '.$rows['cliente_email'].'</th>
+                    </tr>
+                    <tr>
+                        <th> Tipo: '.$rows['cliente_tipo'].'</th>
+                        <th> Responsavel: '.$rows['cliente_responsavel'].'</th>
+                    </tr>
+                    <tr>
+                        <th> Estrutura: '.$rows['loc_tipoEstrutura'].'</th>
+                        <th> Endereço: '.$rows['loc_endereco'].', '.$rows['loc_provincia'].', '.$rows['loc_pais'].'</th>
+                    </tr>
+                </thead>
+            </table>
             <div class="table-responsive">
                 <table class="demo">
                     <thead>
@@ -196,9 +200,10 @@ if ($value =='relatorio') {
     try {
          //Busca de dados do servico tecnico selecionado
          $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['selectRelatorio']); 
-         $stmt = $conn->prepare(" SELECT * from relatorio 
-         INNER JOIN servicotecnico ON servico_id = id_servico
-         INNER JOIN cliente On cliente_id = id_cliente
+         $stmt = $conn->prepare(" SELECT * from relatorio rl
+         INNER JOIN servicotecnico st ON st.servico_id = rl.id_servico
+         INNER JOIN cliente cl On cl.cliente_id = st.id_cliente
+         INNER JOIN localexecucao le On st.servico_id = le.id_servico
          where rel_id = ? ");
          
          $stmt->bind_param("s", $servico);
@@ -252,12 +257,15 @@ if ($value =='relatorio') {
                 <thead>
                     <tr>
                         <th> Cliente: '.$rows['cliente_nome'].'</th>
-                    </tr>
-                    <tr>
                         <th> Email: '.$rows['cliente_email'].'</th>
                     </tr>
                     <tr>
-                        <th> Categoria: '.$rows['cliente_tipo'].'</th>
+                        <th> Tipo: '.$rows['cliente_tipo'].'</th>
+                        <th> Responsavel: '.$rows['cliente_responsavel'].'</th>
+                    </tr>
+                    <tr>
+                        <th> Estrutura: '.$rows['loc_tipoEstrutura'].'</th>
+                        <th> Endereço: '.$rows['loc_endereco'].', '.$rows['loc_provincia'].', '.$rows['loc_pais'].'</th>
                     </tr>
                 </thead>
             </table>
@@ -335,9 +343,10 @@ if ($value =='levantamento') {
     try {
         //Busca de dados do servico tecnico selecionado
         $servico = preg_replace('/(\d+)\s.*/', '$1', $_POST['selectLevantamento']); 
-        $stmt = $conn->prepare(" SELECT * from levantamento 
-        INNER JOIN servicotecnico ON servico_id = id_servico
-        INNER JOIN cliente On cliente_id = id_cliente
+        $stmt = $conn->prepare(" SELECT * from levantamento lv
+        INNER JOIN servicotecnico st ON st.servico_id = lv.id_servico
+        INNER JOIN cliente cl On cl.cliente_id = st.id_cliente
+        INNER JOIN localexecucao le On st.servico_id = le.id_servico
         where lev_id = ? ");
         
         $stmt->bind_param("s", $servico);
@@ -372,19 +381,22 @@ if ($value =='levantamento') {
         $html =$header.
         '
         <img src="assets/images/pdf-header.jpg" width ="1000" >
-            <table class="header">
-                <thead>
-                    <tr>
-                        <th> Cliente: '.$rows['cliente_nome'].'</th>
-                    </tr>
-                    <tr>
-                        <th> Email: '.$rows['cliente_email'].'</th>
-                    </tr>
-                    <tr>
-                        <th> Categoria: '.$rows['cliente_tipo'].'</th>
-                    </tr>
-                </thead>
-            </table>
+        <table class="header">
+            <thead>
+                <tr>
+                    <th> Cliente: '.$rows['cliente_nome'].'</th>
+                    <th> Email: '.$rows['cliente_email'].'</th>
+                </tr>
+                <tr>
+                    <th> Tipo: '.$rows['cliente_tipo'].'</th>
+                    <th> Responsavel: '.$rows['cliente_responsavel'].'</th>
+                </tr>
+                <tr>
+                    <th> Estrutura: '.$rows['loc_tipoEstrutura'].'</th>
+                    <th> Endereço: '.$rows['loc_endereco'].', '.$rows['loc_provincia'].', '.$rows['loc_pais'].'</th>
+                </tr>
+            </thead>
+        </table>
         <div class="table-responsive">
 
             <table class="demo">
